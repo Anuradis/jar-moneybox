@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Observable, of, throwError, pipe } from 'rxjs';
-import { catchError, tap, map } from 'rxjs/operators';
-import { IJar } from './jar/jar-interface';
+import { ITransfer } from '../transfer-history/transfer-interface';
+import { Observable, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class JarService {
+export class TransferService {
 
-private jarUrl = 'api/jars';
+  private transferUrl = './api/transfers';
+
 
   constructor(private http: HttpClient) { }
 
-  getJars(): Observable<IJar[]> {
-    return this.http.get<IJar[]>(this.jarUrl)
+  getTransfers(): Observable<ITransfer[]> {
+    return this.http.get<ITransfer[]>(this.transferUrl)
     .pipe(
-      tap(data => console.log(JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
@@ -37,4 +36,13 @@ private jarUrl = 'api/jars';
     console.error(err);
     return throwError(errorMessage);
   }
+
+  submitTransfer(transfer: ITransfer): Observable<ITransfer> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<ITransfer>(this.transferUrl, transfer, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  // }
 }

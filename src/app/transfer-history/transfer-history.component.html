@@ -1,0 +1,28 @@
+<div class="history__nav">
+  <div class="history__table--sticky-header">
+  <table class="table table-sm table-hover container">
+    <thead>
+      <tr>
+        <th scope="col"
+        (click)="sortById()">#Id</th>
+        <th scope="col">Title</th>
+        <th scope="col">From</th>
+        <th scope="col">To</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Currency</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transfer of transfers">
+        <th scope="row">{{transfer.id}}</th>
+        <td>{{transfer.title}}</td>
+        <td>{{transfer?.from.jarName}}</td>
+        <td>{{transfer?.to.jarName}}</td>
+        <td>{{transfer.amount}}</td>
+        <td>{{transfer.currency}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+

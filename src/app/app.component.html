@@ -1,13 +1,10 @@
-   <header class="jumbotron jumbotron-fluid">
-          <h1 class="display-4">Jar-moneybox</h1>
-          <p >This is a simple jar moneybox management, a simple app that enables storing and transfering money between the jar.</p>
-          <hr class="my-4">
-    </header>
-<section class="container">
-  <div class="row">
-    <div class="col-12">
-      <app-jar></app-jar>
-    </div>
-  </div>
-</section>
+     <section>
+        <app-navbar></app-navbar>
+      <div class="container"></div>
+      <router-outlet></router-outlet>
+        <app-transfer-history *ngIf="!hasRoute('transfer')"></app-transfer-history>
+        <app-jar *ngIf="!hasRoute('transfer')"></app-jar>
+
+      </section>
+
 

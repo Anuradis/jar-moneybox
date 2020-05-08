@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { JarService } from '../jar.service';
+import { JarService } from '../services/jar.service';
 import { IJar } from './jar-interface';
 
 @Component({
@@ -19,6 +19,7 @@ errorMessage = '';
     this.jarService.getJars().subscribe({
       next: data => {
         this.jars = data;
+        console.log(this.jars);
       },
       error: err => this.errorMessage = err
     });

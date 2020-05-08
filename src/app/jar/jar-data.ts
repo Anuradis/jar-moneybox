@@ -1,6 +1,7 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 import { IJar } from './jar-interface';
+import { ITransfer } from '../transfer-history/transfer-interface';
 
 export class JarData implements InMemoryDbService {
 
@@ -8,17 +9,33 @@ export class JarData implements InMemoryDbService {
     const jars: IJar[] = [
       {
         id: 1,
+        jarName: '',
+        accountBalance: 600,
+        currency: '',
+      },
+      {
+        id: 2,
         jarName: 'Sloik',
-        accountBalance: 60,
+        accountBalance: 600,
         currency: 'PLN',
-        payementHistory:
-        [{
-         timeStamp: '22/06/2020',
-         title: 'for apples',
-         value: 40
-        }]
-      }
+      },
+      {
+        id: 3,
+        jarName: 'Skarbonka',
+        accountBalance: 600,
+        currency: 'PLN',
+      },
     ];
-    return {jars};
+    const transfers: ITransfer[] = [
+      {
+        title: 'example',
+        amount: 60,
+        currency: 'PLN',
+        from: '',
+        to: '',
+        id: 1,
+      },
+    ];
+    return {transfers, jars};
   }
 }

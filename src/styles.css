@@ -1,1 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
+div, span, p {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+background-color:#F8F9FA;
+}
+
+ul {
+  list-style-type: none;
+  }
+.main__jar {
+  height: 60vh;
+  max-height: 60vh;
+  background-image: url("./assets/images/jar_img.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+.main_jar--transfer-btn {
+  background-color: none;
+  color:black;
+  border: 3px solid black;
+  position: absolute;
+  right: 42px;
+  width: 200px;
+  border-radius: 15px;
+}
+
+.main__jar--list {
+  position: absolute;
+  top: 70px;
+}
+
+.history__nav {
+height: 50vh;
+}
+
+.history__table--sticky-header {
+ height: 44vh;
+ position: relative;
+ top: 65px;
+}
+
+.transfer__main {
+  padding-top: 2.2rem;
+  height: 35vh;
+  background-color: #f0ad4e;
+  margin-bottom: 20px;
+}
