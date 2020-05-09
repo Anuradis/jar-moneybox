@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,4 @@ export class AppComponent {
   constructor(private router: Router) {}
   title = 'jar-moneybox';
 
-  hasRoute(route: string) {
-    return this.router.url.includes(route);
   }
-}

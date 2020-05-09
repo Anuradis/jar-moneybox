@@ -9,10 +9,12 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { JarData } from './jar/jar-data';
 import { HttpClientModule } from '@angular/common/http';
 import { TransferHistoryComponent } from './transfer-history/transfer-history.component';
-import { MakeTransferComponent } from './jar/make-transfer/make-transfer.component';
+import { MakeTransferComponent } from './make-transfer-form/make-transfer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NewJarFormComponent } from './new-jar-form/new-jar-form.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
@@ -22,7 +24,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     JarComponent,
     TransferHistoryComponent,
     MakeTransferComponent,
-    NavbarComponent
+    NavbarComponent,
+    NewJarFormComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      {path: 'transfer', component: MakeTransferComponent }
+      {path: '', component: DashboardComponent, pathMatch: 'full'},
+      {path: 'transfer', component: MakeTransferComponent },
+      {path: 'newjar', component: NewJarFormComponent}
     ]),
     InMemoryWebApiModule.forRoot(JarData, {apiBase: '/api'}),
   ],

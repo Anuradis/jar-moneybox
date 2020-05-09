@@ -5,10 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, fromEvent, merge, from } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { JarService } from 'src/app/services/jar.service';
-import { IJar } from '../jar-interface';
+import { IJar } from '../jar/jar-interface';
 import { ITransfer } from 'src/app/transfer-history/transfer-interface';
 import { TransferService } from 'src/app/services/transfer.service';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-make-transfer',
@@ -44,11 +43,13 @@ import { JsonPipe } from '@angular/common';
         title: ['', [Validators.required,
                            Validators.minLength(3),
                            Validators.maxLength(25)]],
+        from: [''],
+        to: ['', Validators.required],
         amount: [Number, [Validators.min(0),
                           Validators.required]],
         currency: ['', Validators.required],
-        from: [''],
-        to: ['', Validators.required]
+        date: [Date, Validators.required]
+
       });
 
       this.jarService.getJars()
@@ -123,9 +124,6 @@ import { JsonPipe } from '@angular/common';
 
 onSaveComplete(): void {
       this.transferForm.reset();
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-        this.router.navigate(['']);
-    });
-      // this.router.navigate(['/']);
+      this.router.navigate(['/']);
     }
   }

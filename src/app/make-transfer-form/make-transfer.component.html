@@ -6,7 +6,7 @@
       <div class="form-inline col-12">
         <div class="form-group row col-12 mb-2">
           <label class="col-md-1"
-                for="productNameId">Title</label>
+                for="titleId">Title</label>
             <div class="col-md-3">
             <input class="form-control-sm"
                   id="Title"
@@ -15,7 +15,7 @@
                   formControlName="title" />
             </div>
             <label class="col-form-label col-md-1"
-            for="productCodeId">Amount</label>
+            for="amountId">Amount</label>
             <div class="col-md-3">
               <input class="form-control-sm"
                 id="amountId"
@@ -28,7 +28,7 @@
             </label>
             <div class="col-md-3">
               <select class="form-control-sm"
-              id="currencyId"
+                id="currencyId"
                       type="text"
                       placeholder="(required)"
                       formControlName="currency">
@@ -59,6 +59,18 @@
                       <option *ngFor="let nameTo of jars" [ngValue]='nameTo'>{{nameTo.jarName}}</option>
                     </select>
                   </div>
+                  <label class="col-md-1 col-form-label"
+                    for="date">Date</label>
+                    <div class="col-md-3">
+                      <input class="form-control form-control-sm"
+                        id="dateId"
+                        type="text"
+                        placeholder="(required)"
+                        formControlName="date"
+                        bsDatepicker>
+
+
+                </div>
                   <div class="col-md-4">
                     <button class="col-md-5 btn btn-primary mr-3 btn-sm"
                       type="submit"
@@ -69,7 +81,7 @@
                     <button class="col-md-5 btn btn-outline-secondary btn-sm mr-3 text-nowrap float-right"
                         type="button"
                         title="Cancel your edits"
-                        [routerLink]="['/products']">
+                        [routerLink]="['']">
                           Cancel
                     </button>
                   </div>
@@ -83,3 +95,4 @@
    <div class="alert alert-danger"
     *ngIf="errorMessage">{{errorMessage}}
   </div>
+  <app-jar></app-jar>

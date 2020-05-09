@@ -22,9 +22,18 @@ private jarUrl = './api/jars';
     );
   }
 
+  updateJars(createdJar: IJar): Observable<IJar> {
+    const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<IJar>(this.jarUrl, createdJar, {headers})
+    .pipe(
+      map( () => createdJar),
+      catchError(this.handleError)
+    );
+  }
+
   updateFromBalance(newfromBalance: IJar): Observable<IJar> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<IJar>(this.jarUrl, newfromBalance,  { headers })
+    const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<IJar>(this.jarUrl, newfromBalance, {headers})
       .pipe(
         map( () => newfromBalance),
         catchError(this.handleError)
