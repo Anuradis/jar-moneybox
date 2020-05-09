@@ -1,12 +1,12 @@
 <div class="container mt-4 transfer__main">
   <p>{{pageTitle}}</p>
-    <form novalidate
+    <form novalidate autocomplete="off"
           (ngSubmit)="saveTransfer()"
           [formGroup]="transferForm">
       <div class="form-inline col-12">
         <div class="form-group row col-12 mb-2">
           <label class="col-md-1"
-                for="titleId">Title</label>
+                for="titleId">Title:</label>
             <div class="col-md-3">
             <input class="form-control-sm"
                   id="Title"
@@ -15,7 +15,7 @@
                   formControlName="title" />
             </div>
             <label class="col-form-label col-md-1"
-            for="amountId">Amount</label>
+            for="amountId">Amount:</label>
             <div class="col-md-3">
               <input class="form-control-sm"
                 id="amountId"
@@ -24,7 +24,7 @@
                 formControlName="amount"/>
             </div>
             <label class="col-form-label col-md-1">
-            Currency
+            Currency:
             </label>
             <div class="col-md-3">
               <select class="form-control-sm"
@@ -32,12 +32,12 @@
                       type="text"
                       placeholder="(required)"
                       formControlName="currency">
-                <option *ngFor="let currency of jars">{{currency.currency}}</option>
+                <option *ngFor="let currency of currencyOptions">{{currency}}</option>
               </select>
             </div>
           </div>
               <div class="form-inline row col-md-12 mb-1">
-                <label class="col-md-1 col-form-label" for="fromId">From</label>
+                <label class="col-md-1 col-form-label" for="fromId">From Jar:</label>
                   <div class="col-md-3">
                     <select class="form-control form-control-sm"
                         id="jarNameId"
@@ -49,7 +49,7 @@
                     </select>
                   </div>
                   <label class="col-md-1 col-form-label"
-                    for="productCodeId">To</label>
+                    for="productCodeId">To Jar:</label>
                     <div class="col-md-3">
                       <select class="form-control form-control-sm"
                         id="jarNameId"

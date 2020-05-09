@@ -10,16 +10,18 @@
         <th scope="col">To</th>
         <th scope="col">Amount</th>
         <th scope="col">Currency</th>
+        <th scope="col">Date</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let transfer of transfers">
         <th scope="row">{{transfer.id}}</th>
         <td>{{transfer.title}}</td>
-        <td>{{transfer?.from.jarName}}</td>
-        <td>{{transfer?.to.jarName}}</td>
+        <td>{{transfer.from.jarName}}</td>
+        <td>{{transfer.to.jarName}}</td>
         <td>{{transfer.amount}}</td>
         <td>{{transfer.currency}}</td>
+        <td>{{transfer.date | date: 'medium'}}</td>
       </tr>
     </tbody>
   </table>

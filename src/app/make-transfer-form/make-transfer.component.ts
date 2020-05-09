@@ -8,6 +8,7 @@ import { JarService } from 'src/app/services/jar.service';
 import { IJar } from '../jar/jar-interface';
 import { ITransfer } from 'src/app/transfer-history/transfer-interface';
 import { TransferService } from 'src/app/services/transfer.service';
+import { CurrencyService } from '../services/currency.service';
 
 @Component({
   selector: 'app-make-transfer',
@@ -28,13 +29,16 @@ import { TransferService } from 'src/app/services/transfer.service';
     fromBalance: IJar;
     toBalance: IJar;
     transferedForm: ITransfer;
+    currencyOptions: string[];
+
     private sub: Subscription;
 
     constructor(private fb: FormBuilder,
                 private route: ActivatedRoute,
                 private router: Router,
                 private jarService: JarService,
-                private transferService: TransferService) {
+                private transferService: TransferService,
+                private currencyService: CurrencyService) {
 
     }
 
@@ -48,7 +52,7 @@ import { TransferService } from 'src/app/services/transfer.service';
         amount: [Number, [Validators.min(0),
                           Validators.required]],
         currency: ['', Validators.required],
-        date: [Date, Validators.required]
+        date: ['', Validators.required]
 
       });
 
@@ -56,9 +60,16 @@ import { TransferService } from 'src/app/services/transfer.service';
       .subscribe({
       next: data => {
         this.jars = data;
-        console.log(this.jars);
       },
       error: err => this.errorMessage = err
+      });
+
+      this.currencyService.getCurrencyOptions()
+      .subscribe({
+        next: data => {
+          this.currencyOptions = data;
+        },
+        error: err => this.errorMessage = err
       });
     }
 
@@ -92,12 +103,12 @@ import { TransferService } from 'src/app/services/transfer.service';
         if (this.transferForm.dirty) {
             this.transferedForm = {...this.transferForm.value };
             this.calculate(this.transferedForm, this.fromBalance);
-            this.jarService.updateFromBalance(this.fromBalance)
+            this.jarService.updateJar(this.fromBalance)
               .subscribe({
                 next: () => {},
                 error: err => this.errorOnFromBalance = err
               }),
-             this.jarService.updateToBalance(this.toBalance)
+             this.jarService.updateJar(this.toBalance)
              .subscribe({
                next: () => {},
                error: err => this.errorOnToBalance = err
@@ -114,8 +125,9 @@ import { TransferService } from 'src/app/services/transfer.service';
           //       error: err => this.errorMessage = err
           //     });
           // }
-        } else {
-          this.onSaveComplete();
+        } else if (this.transferForm.invalid) {
+          console.log(this.transferForm.invalid);
+          // this.onSaveComplete();
         }
       } else {
         this.errorMessage = 'Please correct the validation errors.';

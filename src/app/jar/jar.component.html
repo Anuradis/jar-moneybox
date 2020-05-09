@@ -1,10 +1,11 @@
 <div class="container">
   <div class="row">
-    <div class="col-xl-3 col-sm-6 col-12 main__jar center-block text-center" *ngFor="let jar of jars">
+    <div class="col-xl-3 col-sm-6 col-12 main__jar center-block text-center" *ngFor="let jar of jars | slice:1; let i = index">
       <ul class="main__jar--list">
         <li>{{jar.jarName}}</li>
         <li>Balance: {{jar.accountBalance}}</li>
+        <li>Currency: {{jar.currency}}</li>
       </ul>
-    </div>
+  </div>
   </div>
 </div>

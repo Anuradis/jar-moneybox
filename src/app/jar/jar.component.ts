@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { JarService } from '../services/jar.service';
 import { IJar } from './jar-interface';
+import { CurrencyService } from '../services/currency.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-jar',
@@ -11,9 +13,14 @@ export class JarComponent implements OnInit {
 
 
 jars: IJar[] = [];
+currencyOptions: string[];
+changeCurrencySettings: FormGroup;
+
 errorMessage = '';
 
-  constructor(private jarService: JarService) { }
+  constructor(private jarService: JarService,
+              private currencyService: CurrencyService,
+              private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.jarService.getJars().subscribe({
@@ -24,5 +31,4 @@ errorMessage = '';
       error: err => this.errorMessage = err
     });
   }
-
 }

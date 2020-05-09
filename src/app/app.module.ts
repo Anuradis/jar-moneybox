@@ -16,6 +16,7 @@ import { MakeTransferComponent } from './make-transfer-form/make-transfer.compon
 import { NavbarComponent } from './navbar/navbar.component';
 import { NewJarFormComponent } from './new-jar-form/new-jar-form.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CurrencySettingsComponent } from './currency-settings-form/currency-settings.component';
 
 
 
@@ -28,6 +29,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     NavbarComponent,
     NewJarFormComponent,
     DashboardComponent,
+    CurrencySettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     RouterModule.forRoot([
       {path: '', component: DashboardComponent, pathMatch: 'full'},
       {path: 'transfer', component: MakeTransferComponent },
-      {path: 'newjar', component: NewJarFormComponent}
+      {path: 'newjar', component: NewJarFormComponent},
+      {path: 'settings', component: CurrencySettingsComponent}
     ]),
     InMemoryWebApiModule.forRoot(JarData, {apiBase: '/api'}),
   ],

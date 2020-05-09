@@ -5,4 +5,5 @@ export interface ITransfer {
  currency: string;
  from: any;
  to: any;
+ date: Date;
 }

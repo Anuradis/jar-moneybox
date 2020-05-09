@@ -6,6 +6,7 @@ import { Subscription, Observable, fromEvent, merge } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JarService } from '../services/jar.service';
 import { debounceTime } from 'rxjs/operators';
+import { CurrencyService } from '../services/currency.service';
 
 @Component({
   selector: 'app-new-jar-form',
@@ -22,14 +23,14 @@ export class NewJarFormComponent implements OnInit, AfterViewInit {
 
     jars: IJar[] = [];
     createdJarForm: IJar;
+    currencyOptions: string[];
     private sub: Subscription;
 
     constructor(private fb: FormBuilder,
                 private route: ActivatedRoute,
                 private router: Router,
-                private jarService: JarService) {
-
-    }
+                private jarService: JarService,
+                private currencyService: CurrencyService) {}
 
     ngOnInit(): void {
       this.newJarForm = this.fb.group({
@@ -52,6 +53,14 @@ export class NewJarFormComponent implements OnInit, AfterViewInit {
         console.log(this.jars);
       },
       error: err => this.errorMessage = err
+      });
+
+      this.currencyService.getCurrencyOptions()
+      .subscribe({
+        next: data => {
+          this.currencyOptions = data;
+        },
+        error: err => this.errorMessage = err
       });
     }
 
@@ -86,7 +95,7 @@ export class NewJarFormComponent implements OnInit, AfterViewInit {
             console.log("new jar form before", this.newJarForm);
             this.createdJarForm = {...this.newJarForm.value };
             console.log("new jar form", this.newJarForm);
-            this.jarService.updateJars(this.createdJarForm)
+            this.jarService.addNewJar(this.createdJarForm)
             .subscribe({
               next: () => {},
               error: err => this.erronOnCreatedJar = err
