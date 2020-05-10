@@ -9,31 +9,37 @@ export class JarData implements InMemoryDbService {
     const jars: IJar[] = [
       {
         id: 1,
-        jarName: '',
+        jarName: 'PAY IN',
         accountBalance: Number.POSITIVE_INFINITY,
-        currency: 'GBP'
+        currency: ''
       },
       {
         id: 2,
-        jarName: 'aaaxx',
+        jarName: 'pln',
         accountBalance: 600,
         currency: 'PLN'
       },
       {
         id: 3,
-        jarName: 'aaacccxx',
+        jarName: 'eur',
         accountBalance: 600,
         currency: 'EUR'
       },
       {
         id: 4,
-        jarName: 'Zzww',
+        jarName: 'pln1',
+        accountBalance: 600,
+        currency: 'PLN'
+      },
+      {
+        id: 5,
+        jarName: 'eur1',
         accountBalance: 600,
         currency: 'EUR'
       },
       {
-        id: 5,
-        jarName: 'taa',
+        id: 6,
+        jarName: 'eur2',
         accountBalance: 600,
         currency: 'EUR'
       },
@@ -42,7 +48,7 @@ export class JarData implements InMemoryDbService {
       {
         title: 'aaaaa',
         amount: 10,
-        currency: 'USD',
+        currency: 'PLN',
         from: {
           id: 4, jarName: 'Zzww', accountBalance: 656, currency: 'EUR'
         },
@@ -52,47 +58,10 @@ export class JarData implements InMemoryDbService {
         id: 1,
         date: new Date()
       },
-      // {
-      //   title: 'aaaaabb',
-      //   amount: 20,
-      //   currency: 'JPY',
-      //   from: 'aaaxx',
-      //   to: 'dcaaaa',
-      //   id: 4,
-      //   date: new Date()
-      // },
-      // {
-      //   title: 'aaaxxx',
-      //   amount: 30,
-      //   currency: 'PLN',
-      //   from: 'Zzww',
-      //   to: 'Zzww',
-      //   id: 3,
-      //   date: new Date()
-      // },
-      // {
-      //   title: 'aaaccc',
-      //   amount: 40,
-      //   currency: 'CHF',
-      //   from: 'aaaxx',
-      //   to: 'dcaaaa',
-      //   id: 5,
-      //   date: new Date()
-      // },
-
     ];
     const currencyOptions = [
       '', 'PLN', 'EUR', 'USD', 'GBP', 'CHF', 'JPY'
     ];
-    const currencyOptions1 = [
-      {value: "''"},
-      {value: "EUR"},
-      {value: "USD"},
-      {value: 'GBP'},
-      {value: "CHF"},
-      {value: "JPY"},
-      {value: "PLN"}
-    ]
     return {transfers, jars, currencyOptions};
   }
 }

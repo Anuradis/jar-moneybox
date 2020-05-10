@@ -64,10 +64,6 @@ export class NewJarFormComponent implements OnInit, AfterViewInit {
       });
     }
 
-    // ngOnDestroy(): void {
-    //   this.sub.unsubscribe();
-    // }
-
     ngAfterViewInit(): void {
       const controlBlurs: Observable<any>[] = this.formInputElements
         .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));

@@ -34,7 +34,7 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
               private route: ActivatedRoute,
               private router: Router,
               private jarService: JarService,
-              private currencyService: CurrencyService) {}
+              private currencyService: CurrencyService) { }
 
 
   ngOnInit(): void {
@@ -46,23 +46,22 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
 
 
     this.jarService.getJars()
-    .subscribe({
-    next: data => {
-      this.jars = data;
-      console.log(this.jars);
-    },
-    error: err => this.errorMessage = err
-    });
+      .subscribe({
+        next: data => {
+          this.jars = data;
+          console.log(this.jars);
+        },
+        error: err => this.errorMessage = err
+      });
 
     this.currencyService.getCurrencyOptions()
-    .subscribe({
-      next: data => {
-        this.currencyOptions = data;
-        this.currencyOptions1 = data;
-        console.log("currencyt Options", this.currencyOptions1);
-      },
-      error: err => this.errorMessage = err
-    });
+      .subscribe({
+        next: data => {
+          this.currencyOptions = data;
+          this.currencyOptions1 = data;
+        },
+        error: err => this.errorMessage = err
+      });
   }
 
   ngAfterViewInit(): void {
@@ -74,15 +73,13 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
   }
 
   onSettingsChange() {
-   for (const jar of this.jars) {
-     if (this.newSettingsForm.value.jarName === jar.jarName) {
-       jar.currency = this.newSettingsForm.value.currency;
-       this.createdSettingsForm = {...this.newSettingsForm.value };
-       this.createdSettingsForm = jar;
-       console.log("onSettingsChange", this.newSettingsForm);
-       console.log(this.createdSettingsForm);
-     }
-   }
+    for (const jar of this.jars) {
+      if (this.newSettingsForm.value.jarName.id === jar.id) {
+        jar.currency = this.newSettingsForm.value.currency;
+        this.createdSettingsForm = { ...this.newSettingsForm.value };
+        this.createdSettingsForm = jar;
+      }
+    }
   }
 
 
@@ -92,34 +89,8 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
         this.onSettingsChange();
         this.jarService.updateJar(this.createdSettingsForm)
           .subscribe({
-            next: () => {},
             error: err => this.erronOnCreatedJar = err
           });
-          // this.calculate(this.transferedForm, this.fromBalance);
-
-          // this.jarService.updateFromBalance(this.fromBalance)
-          //   .subscribe({
-          //     next: () => {},
-          //     error: err => this.errorOnFromBalance = err
-          //   }),
-          //  this.jarService.updateToBalance(this.toBalance)
-          //  .subscribe({
-          //    next: () => {},
-          //    error: err => this.errorOnToBalance = err
-          //  }),
-          // this.transferService.submitTransfer(this.transferedForm)
-          //   .subscribe({
-          //     next: () => this.onJarCreated(),
-          //     error: err => this.errorMessage = err
-          //   });
-
-        // else {
-        //   this.jarService.updateJar(t)
-        //     .subscribe({
-        //       next: () => this.onSaveComplete(),
-        //       error: err => this.errorMessage = err
-        //     });
-        // }
       } else {
         this.onJarCreated();
       }
@@ -129,7 +100,7 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
     this.onJarCreated();
   }
 
-onJarCreated(): void {
+  onJarCreated(): void {
     this.newSettingsForm.reset();
     this.router.navigate(['/']);
   }

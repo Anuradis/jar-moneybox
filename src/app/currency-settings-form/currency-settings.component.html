@@ -1,66 +1,47 @@
 <div class="container mt-4 form_main">
   <p class="form_title">{{pageTitle}}</p>
-    <form novalidate
-          (ngSubmit)="submitSettings()"
-          [formGroup]="newSettingsForm">
-          <div class="form-group row">
-            <label class="col-form-label col-md-2">
-              Jar Name
-              </label>
-              <div class="col-md-4">
-                <select class="form-control"
-                id="nameId"
-                        type="text"
-                        placeholder="(required)"
-                        formControlName="jarName">
-                      <option selected value="">Select</option>
-                  <option *ngFor="let jar of jars | slice:1; let i = index">
-                    {{jar.jarName}}</option>
-                </select>
-                <!-- <span class="invalid-feedback"
-                *ngIf="newSettingsForm.get('jarName').invalid">{{editRequired}}
-                </span> -->
-              </div>
+  <form novalidate (ngSubmit)="submitSettings()" [formGroup]="newSettingsForm">
+    <div class="form-group row">
+      <label class="col-form-label col-md-2">
+        Jar Name
+      </label>
+      <div class="col-md-4">
+        <select class="form-control" id="nameId" type="text" placeholder="(required)" formControlName="jarName">
+          <option selected disabled value="">Select</option>
+          <option *ngFor="let jar of jars | slice:1; let i = index" [ngValue]='jar'>
+            {{jar.jarName}}</option>
+          </select>
+      </div>
 
-
-            <label class="col-form-label col-md-2">
-            Currency
-            </label>
-            <div class="col-md-4">
-              <select class="form-control"
-                      #currency
-                      id="currencyId"
-                      type="text"
-                      placeholder="(required)"
-                      formControlName="currency" >
-                        <option disabled selected value="">
-                          Select currency</option>
-                <option *ngFor="let currency of currencyOptions1 | slice:1; let i = index">
-                  {{currency}}</option>
-              </select>
-              </div>
-              <div class="container mt-4">
-                  <div class="row">
-                  <div class="col text-center">
-                    <button class="btn btn-primary custom btn-sm mr-2 "
-                      type="submit"
-                      [title]="newSettingsForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
-                      [disabled]="!newSettingsForm.valid">
-                          Save
-                    </button>
-                        <button class="btn btn-outline-secondary custom ml-2 btn-sm"
-                            type="button"
-                            title="Cancel your edits"
-                            [routerLink]="['']">
-                              Cancel
-                        </button>
-                   </div>
-                  </div>
-                  </div>
-                </div>
-      </form>
-  </div>
-   <div class="alert alert-danger"
-    *ngIf="errorMessage">{{errorMessage}}
-  </div>
+      <label class="col-form-label col-md-2">
+        Currency
+      </label>
+      <div class="col-md-4">
+        <select class="form-control" id="currencyId" type="text" placeholder="(required)" formControlName="currency">
+          <option disabled selected value="">
+            Select</option>
+          <option *ngFor="let currency of currencyOptions | slice:1; let i = index">
+            {{currency}}</option>
+        </select>
+      </div>
+      <div class="container mt-4">
+        <div class="row">
+          <div class="col text-center">
+            <button class="btn btn-primary custom btn-sm mr-2 " type="submit"
+              [title]="newSettingsForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+              [disabled]="!newSettingsForm.valid">
+              Save
+            </button>
+            <button class="btn btn-outline-secondary custom ml-2 btn-sm" type="button" title="Cancel your edits"
+              [routerLink]="['']">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}
+</div>
 <app-jar class="container"></app-jar>

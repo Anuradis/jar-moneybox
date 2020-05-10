@@ -10,7 +10,7 @@
             <input class="form-control"
                   id="name"
                   type="text"
-                  placeholder="(required)"
+                  placeholder="required"
                   formControlName="jarName" />
             </div>
             <label class="col-form-label col-md-1"
@@ -19,7 +19,7 @@
               <input class="form-control"
                 id="balanceId"
                 type="number"
-                placeholder="(required)"
+                placeholder="required"
                 formControlName="accountBalance"/>
             </div>
             <label class="col-form-label col-md-1">
@@ -29,9 +29,9 @@
               <select class="form-control"
               id="currencyId"
                       type="text"
-                      placeholder="(required)"
+                      placeholder="required"
                       formControlName="currency">
-                  <option disabled selected value="">Select Currency</option>
+                  <option disabled selected value="">Select</option>
                 <option *ngFor="let currency of currencyOptions | slice:1; let i = index"
                 >{{currency}}</option>
             </select>

@@ -44,9 +44,19 @@
                         type="text"
                         placeholder="(required)"
                         formControlName="from">
+                        <option selected disabled value="">Select</option>
                         <option *ngFor="let nameFrom of jars" [ngValue]='nameFrom'>
                         {{nameFrom.jarName}}</option>
                     </select>
+                    <!-- {{ transferForm.hasError() | json }} has error -->
+                    {{ transferForm.get('from').hasError('customNotValid') | json }}
+                    <div class='invalid-feedback' *ngIf="transferForm.get('from').hasError('customNotValid')">
+                      this is my error
+                    </div>
+                    <div class='invalid-feedback' *ngIf="transferForm.get('from').hasError('customNotValid')">
+                      this is my error
+                    </div>
+
                   </div>
                   <label class="col-md-1 col-form-label"
                     for="productCodeId">To</label>
@@ -56,6 +66,7 @@
                         type="text"
                         placeholder="(required)"
                         formControlName="to">
+                        <option selected disabled value="">Select</option>
                       <option *ngFor="let nameTo of jars | slice:1; let i = index" [ngValue]='nameTo'>{{nameTo.jarName}}</option>
                     </select>
                   </div>
@@ -77,8 +88,8 @@
                     <button class="btn btn-primary custom mr-3 btn-sm"
                       type="submit"
                       [title]="transferForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
-                      [disabled]="!transferForm.valid">
-                          Save
+                      [disabled]="!transferForm.valid"
+                      > Make a transfer
                     </button>
                     <button class="btn custom btn-outline-secondary btn-sm mr-3"
                         type="button"

@@ -16,6 +16,7 @@ ul {
 .main__jar {
   height: 45vh;
   max-height: 45vh;
+  margin-bottom: 18px;
   background-image: url("./assets/images/jar_img.png");
   background-position: center;
   background-size: contain;
@@ -34,9 +35,14 @@ ul {
 }
 
 .history__table--sticky-header {
- min-height: 45vh;
- position: relative;
- top: 65px;
+margin-top: 63px;
+ min-height: 31vh;
+ overflow-y: auto; height: 31vh;
+ bottom: 200px;
+}
+
+.history__table--sticky-header thead th{
+position: sticky; top:0;
 }
 
 .vertical {
@@ -58,7 +64,7 @@ ul {
   color: #6C757D;
 }
 .custom {
-  width: 100px;
+  width: 160px;
 }
 
 @media only screen and (min-width: 2500px)  {

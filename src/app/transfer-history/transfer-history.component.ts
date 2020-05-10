@@ -11,7 +11,7 @@ export class TransferHistoryComponent implements OnInit {
 
 
  transfers: ITransfer[] = [];
- sortedTransfers: ITransfer[] = [];
+ sortedTransfers: any;
  sortDir = 1;
  tempList = [];
  errorMessage: string;
@@ -31,7 +31,7 @@ export class TransferHistoryComponent implements OnInit {
     });
   }
 
-  onSortClick ($event, sortArr) {
+  onSortClick($event, sortArr) {
     const target = $event.currentTarget,
       classList = target.classList;
 
@@ -39,21 +39,27 @@ export class TransferHistoryComponent implements OnInit {
       classList.remove('fa-chevron-up');
       classList.add('fa-chevron-down');
       this.sortDir = -1;
+
     } else {
       classList.add('fa-chevron-up');
       classList.remove('fa-chevron-down');
       this.sortDir = 1;
     }
-    // this.sortArr(sortArr);
+    this.sortArr(sortArr);
   }
 
-  // sortArr(colName) {
-  //   this.sortedTransfers.sort((a, b) => {
-  //     a = a[colName];
-  //     b = b[colName];
-  //     console.log("im in sortArr");
-  //     return a.localeCompare(b) * this.sortDir;
-  //   });
-  // }
+  sortArr(colName) {
+    this.sortedTransfers.sort((a, b) => {
+      a = a[colName];
+      b = b[colName];
+      if (typeof a === 'number' || typeof b === 'number') {
+        a = a.toString();
+        b = b.toString();
+      }
+      const z = a.localeCompare(b) * this.sortDir;
+      console.log(z);
+      return a.localeCompare(b) * this.sortDir;
+    });
+  }
 }
 
