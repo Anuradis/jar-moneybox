@@ -1,14 +1,13 @@
-<div class="container mt-4 transfer__main">
-  <p>{{pageTitle}}</p>
+<div class="container mt-4 form_main">
+  <p class="form_title">{{pageTitle}}</p>
     <form novalidate
           (ngSubmit)="submitNewJar()"
           [formGroup]="newJarForm">
-      <div class="form-inline col-12">
-        <div class="form-group row col-12 mb-2">
-          <label class="col-md-1"
+            <div class="form-group row">
+          <label class="col-form-label col-md-1"
                 for="nameId">Name:</label>
             <div class="col-md-3">
-            <input class="form-control-sm"
+            <input class="form-control"
                   id="name"
                   type="text"
                   placeholder="(required)"
@@ -17,7 +16,7 @@
             <label class="col-form-label col-md-1"
             for="balanceId">Balance:</label>
             <div class="col-md-3">
-              <input class="form-control-sm"
+              <input class="form-control"
                 id="balanceId"
                 type="number"
                 placeholder="(required)"
@@ -27,33 +26,36 @@
             Currency:
             </label>
             <div class="col-md-3">
-              <select class="form-control-sm"
+              <select class="form-control"
               id="currencyId"
                       type="text"
                       placeholder="(required)"
-                      formControlName="currency" >
-                <option *ngFor="let currency of currencyOptions"
+                      formControlName="currency">
+                <option *ngFor="let currency of currencyOptions | slice:1; let i = index"
                 >{{currency}}</option>
               </select>
+              <span class="invalid-feedback">{{editRequired}}
+              </span>
             </div>
           </div>
-              <div class="form-inline row col-md-12 mb-1">
-                  <div class="col-md-4">
-                    <button class="col-md-5 btn btn-primary mr-3 btn-sm"
-                      type="submit"
-                      [title]="newJarForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
-                      [disabled]="!newJarForm.valid">
-                          Save
-                    </button>
-                    <button class="col-md-5 btn btn-outline-secondary btn-sm mr-3 text-nowrap float-right"
+              <div class="container mt-4">
+                  <div class="row">
+                    <div class="col text-center">
+                      <button class="btn btn-primary custom mr-2 btn-sm"
+                        type="submit"
+                        [title]="newJarForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                        [disabled]="!newJarForm.valid">
+                            Save
+                       </button>
+                        <button class="btn custom btn-outline-secondary btn-sm ml-2"
                         type="button"
                         title="Cancel your edits"
                         [routerLink]="['']">
                           Cancel
-                    </button>
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                </div>
-              </div>
              <span class="invalid-feedback">
              {{pageTitle}}
              </span>
@@ -62,4 +64,4 @@
    <div class="alert alert-danger"
     *ngIf="errorMessage">{{errorMessage}}
   </div>
-<app-jar></app-jar>
+<app-jar class="container"></app-jar>

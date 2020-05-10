@@ -1,60 +1,73 @@
-<div class="container mt-4 transfer__main">
-  <p>{{pageTitle}}</p>
+<div class="container mt-4 form_main">
+  <p class="form_title">{{pageTitle}}</p>
     <form novalidate
           (ngSubmit)="submitSettings()"
           [formGroup]="newSettingsForm">
-      <div class="form-inline col-12">
-        <div class="form-group row col-12 mb-2">
+          <div class="form-group row">
             <label class="col-form-label col-md-2">
-              Jar Name:
+              Jar Name
               </label>
               <div class="col-md-4">
-                <select class="form-control-sm"
+                <select class="form-control"
                 id="nameId"
                         type="text"
                         placeholder="(required)"
-                        formControlName="jarName" >
-                  <option *ngFor="let jar of jars">
+                        formControlName="jarName"
+                        [ngClass]="{'is-invalid': currency.value ? 'default' : '!default'}" >
+                      <option value="default">
+                        Select name</option>
+                  <option *ngFor="let jar of jars | slice:1; let i = index">
                     {{jar.jarName}}</option>
                 </select>
+                <span class="invalid-feedback">{{editRequired}}
+                </span>
               </div>
+
+
             <label class="col-form-label col-md-2">
-            Currency:
+            Currency
             </label>
             <div class="col-md-4">
-              <select class="form-control-sm"
-              id="currencyId"
+              <select class="form-control"
+                      #currency
+                      id="currencyId"
                       type="text"
                       placeholder="(required)"
-                      formControlName="currency" >
-                <option *ngFor="let currency of currencyOptions">
+                      formControlName="currency"
+                      [ngClass]="{'is-invalid': currency.value ? 'default' : '!default'}" >
+                      <option value="default">
+                        Select currency</option>
+                <option *ngFor="let currency of currencyOptions | slice:1; let i = index">
                   {{currency}}</option>
               </select>
-            </div>
-          </div>
-              <div class="form-inline row col-md-12 mb-1">
-                  <div class="col-md-4">
-                    <button class="col-md-5 btn btn-primary mr-3 btn-sm"
+              <span class="invalid-feedback">{{editRequired}} {{currency.value}}
+            </span>
+              </div>
+              <div class="container mt-4">
+                  <div class="row">
+                  <div class="col text-center">
+                    <button class="btn btn-primary custom btn-sm mr-2 "
                       type="submit"
-                      [title]="newSettingsForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
-                      [disabled]="!newSettingsForm.valid">
+                      [title]="newSettingsForm.dirty ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                      [disabled]="!newSettingsForm.dirty">
                           Save
                     </button>
-                    <button class="col-md-5 btn btn-outline-secondary btn-sm mr-3 text-nowrap float-right"
-                        type="button"
-                        title="Cancel your edits"
-                        [routerLink]="['']">
-                          Cancel
-                    </button>
+                        <button class="btn btn-outline-secondary custom ml-2 btn-sm"
+                            type="button"
+                            title="Cancel your edits"
+                            [routerLink]="['']">
+                              Cancel
+                        </button>
+                   </div>
+                  </div>
+                  </div>
                 </div>
-                </div>
-              </div>
-             <span class="invalid-feedback">
-             {{pageTitle}}
+              <span class="invalid-feedback">
+             {{title}}
              </span>
       </form>
   </div>
    <div class="alert alert-danger"
     *ngIf="errorMessage">{{errorMessage}}
   </div>
-<app-jar></app-jar>
+<app-jar class="container"></app-jar>

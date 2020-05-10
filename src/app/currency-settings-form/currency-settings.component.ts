@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JarService } from '../services/jar.service';
 import { CurrencyService } from '../services/currency.service';
 import { debounceTime } from 'rxjs/operators';
+import { GenericValidator } from '../shared/generic-validator';
 
 @Component({
   selector: 'app-currency-settings',
@@ -17,6 +18,7 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
 
   pageTitle = 'Currency Settings';
   errorMessage: string;
+  editRequired = 'In order to change currency settings select jar name and searched currency';
   erronOnCreatedJar: string;
 
   newSettingsForm: FormGroup;
@@ -26,11 +28,13 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
   currencyOptions: string[];
   private sub: Subscription;
 
+
   constructor(private fb: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
               private jarService: JarService,
               private currencyService: CurrencyService) {}
+
 
   ngOnInit(): void {
     this.newSettingsForm = this.fb.group({
@@ -38,8 +42,6 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
       currency: ['', Validators.required],
 
     });
-
-    this.newSettingsForm.valueChanges.subscribe(data => console.log('formchanges', data));
 
 
     this.jarService.getJars()
@@ -78,6 +80,7 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
        jar.currency = this.newSettingsForm.value.currency;
        this.createdSettingsForm = {...this.newSettingsForm.value };
        this.createdSettingsForm = jar;
+       console.log("onSettingsChange", this.newSettingsForm);
      }
    }
   }

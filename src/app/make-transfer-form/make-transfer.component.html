@@ -1,33 +1,32 @@
-<div class="container mt-4 transfer__main">
-  <p>{{pageTitle}}</p>
+<div class="container mt-4 form_main">
+  <p class="form_title">{{pageTitle}}</p>
     <form novalidate autocomplete="off"
           (ngSubmit)="saveTransfer()"
           [formGroup]="transferForm">
-      <div class="form-inline col-12">
-        <div class="form-group row col-12 mb-2">
-          <label class="col-md-1"
-                for="titleId">Title:</label>
+        <div class="form-group row">
+          <label class="col-form-label col-md-1"
+                for="titleId">Title</label>
             <div class="col-md-3">
-            <input class="form-control-sm"
+            <input class="form-control"
                   id="Title"
                   type="text"
                   placeholder="(required)"
                   formControlName="title" />
             </div>
             <label class="col-form-label col-md-1"
-            for="amountId">Amount:</label>
+            for="amountId">Amount</label>
             <div class="col-md-3">
-              <input class="form-control-sm"
+              <input class="form-control"
                 id="amountId"
                 type="number"
                 placeholder="(required)"
                 formControlName="amount"/>
             </div>
             <label class="col-form-label col-md-1">
-            Currency:
+            Currency
             </label>
             <div class="col-md-3">
-              <select class="form-control-sm"
+              <select class="form-control"
                 id="currencyId"
                       type="text"
                       placeholder="(required)"
@@ -35,11 +34,11 @@
                 <option *ngFor="let currency of currencyOptions">{{currency}}</option>
               </select>
             </div>
-          </div>
-              <div class="form-inline row col-md-12 mb-1">
-                <label class="col-md-1 col-form-label" for="fromId">From Jar:</label>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-1 col-form-label" for="fromId">From</label>
                   <div class="col-md-3">
-                    <select class="form-control form-control-sm"
+                    <select class="form-control"
                         id="jarNameId"
                         type="text"
                         placeholder="(required)"
@@ -49,20 +48,20 @@
                     </select>
                   </div>
                   <label class="col-md-1 col-form-label"
-                    for="productCodeId">To Jar:</label>
+                    for="productCodeId">To</label>
                     <div class="col-md-3">
-                      <select class="form-control form-control-sm"
+                      <select class="form-control"
                         id="jarNameId"
                         type="text"
                         placeholder="(required)"
                         formControlName="to">
-                      <option *ngFor="let nameTo of jars" [ngValue]='nameTo'>{{nameTo.jarName}}</option>
+                      <option *ngFor="let nameTo of jars | slice:1; let i = index" [ngValue]='nameTo'>{{nameTo.jarName}}</option>
                     </select>
                   </div>
                   <label class="col-md-1 col-form-label"
                     for="date">Date</label>
                     <div class="col-md-3">
-                      <input class="form-control form-control-sm"
+                      <input class="form-control form-control"
                         id="dateId"
                         type="text"
                         placeholder="(required)"
@@ -71,28 +70,31 @@
 
 
                 </div>
-                  <div class="col-md-4">
-                    <button class="col-md-5 btn btn-primary mr-3 btn-sm"
+                  <div class="container mt-4">
+                    <div class="row">
+                      <div class="col text-center">
+                    <button class="btn btn-primary custom mr-3 btn-sm"
                       type="submit"
                       [title]="transferForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
                       [disabled]="!transferForm.valid">
                           Save
                     </button>
-                    <button class="col-md-5 btn btn-outline-secondary btn-sm mr-3 text-nowrap float-right"
+                    <button class="btn custom btn-outline-secondary btn-sm mr-3"
                         type="button"
                         title="Cancel your edits"
                         [routerLink]="['']">
                           Cancel
                     </button>
+                       </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-             <span class="invalid-feedback">
-             {{pageTitle}}
-             </span>
-      </form>
-  </div>
-   <div class="alert alert-danger"
-    *ngIf="errorMessage">{{errorMessage}}
-  </div>
-  <app-jar></app-jar>
+                  <span class="invalid-feedback">
+                {{pageTitle}}
+                </span>
+          </form>
+        </div>
+        <div class="alert alert-danger"
+          *ngIf="errorMessage">{{errorMessage}}
+        </div>
+       <app-jar class="container"></app-jar>

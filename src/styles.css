@@ -9,10 +9,13 @@ background-color:#F8F9FA;
 
 ul {
   list-style-type: none;
+  position: relative;
+  color: #f0ad4e;
+  font-weight: 500;
   }
 .main__jar {
-  height: 60vh;
-  max-height: 60vh;
+  height: 45vh;
+  max-height: 45vh;
   background-image: url("./assets/images/jar_img.png");
   background-position: center;
   background-size: contain;
@@ -30,26 +33,42 @@ ul {
   border-radius: 15px;
 }
 
-.main__jar--list {
-  position: absolute;
-  top: 70px;
-}
-
-.history__nav {
-height: 50vh;
-}
-
 .history__table--sticky-header {
- height: 44vh;
+ min-height: 45vh;
  position: relative;
  top: 65px;
 }
 
-.transfer__main {
+.vertical {
+  margin: 3rem 0px;
+  z-index: 1;
+}
+.form_main {
   padding-top: 2.2rem;
-  height: 40vh;
-  background-color: #f0ad4e;
-  opacity: 0.;
+  min-height: 45vh;
+  background-color: #F8F9FA;
   margin-bottom: 20px;
   border-radius: 15px;
 }
+
+
+.form_title {
+  padding: 15px;
+  font-size: 1.2rem;
+  color: #6C757D;
+}
+.custom {
+  width: 100px;
+}
+
+@media only screen and (min-width: 2500px)  {
+  .text-mac {
+    font-size: 2rem;
+
+  }}
+
+  @media only screen and (max-width: 800px)  {
+    .main__jar {
+      margin-bottom: 1.5rem;
+
+    }}
