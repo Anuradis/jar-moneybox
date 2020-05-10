@@ -11,19 +11,49 @@ export class TransferHistoryComponent implements OnInit {
 
 
  transfers: ITransfer[] = [];
+ sortedTransfers: ITransfer[] = [];
+ sortDir = 1;
+ tempList = [];
  errorMessage: string;
- sortBy;
 
-  constructor(private transferService: TransferService) { }
+  constructor(private transferService: TransferService) {
+
+   }
 
   ngOnInit() {
     this.transferService.getTransfers()
     .subscribe({
       next: data => {
         this.transfers = data;
+        this.sortedTransfers = data;
       },
       error: err => this.errorMessage = err
     });
   }
 
+  onSortClick ($event, sortArr) {
+    const target = $event.currentTarget,
+      classList = target.classList;
+
+    if (classList.contains('fa-chevron-up')) {
+      classList.remove('fa-chevron-up');
+      classList.add('fa-chevron-down');
+      this.sortDir = -1;
+    } else {
+      classList.add('fa-chevron-up');
+      classList.remove('fa-chevron-down');
+      this.sortDir = 1;
+    }
+    // this.sortArr(sortArr);
+  }
+
+  // sortArr(colName) {
+  //   this.sortedTransfers.sort((a, b) => {
+  //     a = a[colName];
+  //     b = b[colName];
+  //     console.log("im in sortArr");
+  //     return a.localeCompare(b) * this.sortDir;
+  //   });
+  // }
 }
+

@@ -6,6 +6,8 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 
 import { AppComponent } from './app.component';
 import { JarComponent } from './jar/jar.component';
@@ -39,6 +41,7 @@ import { CurrencySettingsComponent } from './currency-settings-form/currency-set
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
+    AngularFontAwesomeModule,
     RouterModule.forRoot([
       {path: '', component: DashboardComponent, pathMatch: 'full'},
       {path: 'transfer', component: MakeTransferComponent },

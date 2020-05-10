@@ -31,11 +31,10 @@
                       type="text"
                       placeholder="(required)"
                       formControlName="currency">
+                  <option disabled selected value="">Select Currency</option>
                 <option *ngFor="let currency of currencyOptions | slice:1; let i = index"
                 >{{currency}}</option>
-              </select>
-              <span class="invalid-feedback">{{editRequired}}
-              </span>
+            </select>
             </div>
           </div>
               <div class="container mt-4">

@@ -26,6 +26,7 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
 
   jars: IJar[] = [];
   currencyOptions: string[];
+  currencyOptions1: [];
   private sub: Subscription;
 
 
@@ -57,14 +58,12 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
     .subscribe({
       next: data => {
         this.currencyOptions = data;
+        this.currencyOptions1 = data;
+        console.log("currencyt Options", this.currencyOptions1);
       },
       error: err => this.errorMessage = err
     });
   }
-
-  // ngOnDestroy(): void {
-  //   this.sub.unsubscribe();
-  // }
 
   ngAfterViewInit(): void {
     const controlBlurs: Observable<any>[] = this.formInputElements
@@ -81,6 +80,7 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
        this.createdSettingsForm = {...this.newSettingsForm.value };
        this.createdSettingsForm = jar;
        console.log("onSettingsChange", this.newSettingsForm);
+       console.log(this.createdSettingsForm);
      }
    }
   }

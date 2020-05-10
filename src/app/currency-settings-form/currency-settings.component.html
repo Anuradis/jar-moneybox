@@ -12,15 +12,14 @@
                 id="nameId"
                         type="text"
                         placeholder="(required)"
-                        formControlName="jarName"
-                        [ngClass]="{'is-invalid': currency.value ? 'default' : '!default'}" >
-                      <option value="default">
-                        Select name</option>
+                        formControlName="jarName">
+                      <option selected value="">Select</option>
                   <option *ngFor="let jar of jars | slice:1; let i = index">
                     {{jar.jarName}}</option>
                 </select>
-                <span class="invalid-feedback">{{editRequired}}
-                </span>
+                <!-- <span class="invalid-feedback"
+                *ngIf="newSettingsForm.get('jarName').invalid">{{editRequired}}
+                </span> -->
               </div>
 
 
@@ -33,23 +32,20 @@
                       id="currencyId"
                       type="text"
                       placeholder="(required)"
-                      formControlName="currency"
-                      [ngClass]="{'is-invalid': currency.value ? 'default' : '!default'}" >
-                      <option value="default">
-                        Select currency</option>
-                <option *ngFor="let currency of currencyOptions | slice:1; let i = index">
+                      formControlName="currency" >
+                        <option disabled selected value="">
+                          Select currency</option>
+                <option *ngFor="let currency of currencyOptions1 | slice:1; let i = index">
                   {{currency}}</option>
               </select>
-              <span class="invalid-feedback">{{editRequired}} {{currency.value}}
-            </span>
               </div>
               <div class="container mt-4">
                   <div class="row">
                   <div class="col text-center">
                     <button class="btn btn-primary custom btn-sm mr-2 "
                       type="submit"
-                      [title]="newSettingsForm.dirty ? 'Save your entered data' : 'Disabled until the form data is valid'"
-                      [disabled]="!newSettingsForm.dirty">
+                      [title]="newSettingsForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                      [disabled]="!newSettingsForm.valid">
                           Save
                     </button>
                         <button class="btn btn-outline-secondary custom ml-2 btn-sm"
@@ -62,9 +58,6 @@
                   </div>
                   </div>
                 </div>
-              <span class="invalid-feedback">
-             {{title}}
-             </span>
       </form>
   </div>
    <div class="alert alert-danger"

@@ -53,7 +53,6 @@ import { CurrencyService } from '../services/currency.service';
                           Validators.required]],
         currency: ['', Validators.required],
         date: ['', Validators.required]
-
       });
 
       this.jarService.getJars()
