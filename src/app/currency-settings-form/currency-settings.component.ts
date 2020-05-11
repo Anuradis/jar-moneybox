@@ -5,13 +5,11 @@ import { Subscription, Observable, fromEvent, merge } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JarService } from '../services/jar.service';
 import { CurrencyService } from '../services/currency.service';
-import { debounceTime } from 'rxjs/operators';
-import { GenericValidator } from '../shared/generic-validator';
+import { debounceTime } from 'rxjs/operators';;
 
 @Component({
   selector: 'app-currency-settings',
   templateUrl: './currency-settings.component.html',
-  styleUrls: ['./currency-settings.component.css']
 })
 export class CurrencySettingsComponent implements OnInit, AfterViewInit {
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
@@ -31,10 +29,10 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
 
 
   constructor(private fb: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private jarService: JarService,
-              private currencyService: CurrencyService) { }
+    private route: ActivatedRoute,
+    private router: Router,
+    private jarService: JarService,
+    private currencyService: CurrencyService) { }
 
 
   ngOnInit(): void {

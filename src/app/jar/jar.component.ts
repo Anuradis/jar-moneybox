@@ -7,20 +7,19 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-jar',
   templateUrl: './jar.component.html',
-  styleUrls: ['./jar.component.css']
 })
 export class JarComponent implements OnInit {
 
 
-jars: IJar[] = [];
-currencyOptions: string[];
-changeCurrencySettings: FormGroup;
+  jars: IJar[] = [];
+  currencyOptions: string[];
+  changeCurrencySettings: FormGroup;
 
-errorMessage = '';
+  errorMessage = '';
 
   constructor(private jarService: JarService,
-              private currencyService: CurrencyService,
-              private fb: FormBuilder) { }
+    private currencyService: CurrencyService,
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.jarService.getJars().subscribe({

@@ -14,9 +14,9 @@ export class CurrencyService {
 
   getCurrencyOptions(): Observable<[]> {
     return this.http.get<[]>(this.currencyOptionsUrl)
-    .pipe(
-      catchError(this.handleError)
-    );
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   private handleError(err) {

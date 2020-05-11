@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChildren, ElementRef, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormControlName, ValidatorFn } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Observable, Subscription, fromEvent, merge, from } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -9,15 +9,14 @@ import { IJar } from '../jar/jar-interface';
 import { ITransfer } from 'src/app/transfer-history/transfer-interface';
 import { TransferService } from 'src/app/services/transfer.service';
 import { CurrencyService } from '../services/currency.service';
-import { format } from 'url';
+
 
 @Component({
   selector: 'app-make-transfer',
-  templateUrl: './make-transfer.component.html',
-  styleUrls: ['./make-transfer.component.css']
+  templateUrl: './make-transfer.component.html'
 })
 
-export class MakeTransferComponent implements OnInit, AfterViewInit {
+export class MakeTransferComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
   pageTitle = 'Make Transfer';
@@ -28,12 +27,11 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
 
   payementButton;
 
-  public title: FormControl = new FormControl('', [Validators.required, Validators.minLength(3),
-  Validators.maxLength(25)]);
-  public from: FormControl = new FormControl();
-  public to: FormControl = new FormControl('', Validators.required);
-  public amount: FormControl = new FormControl('', [Validators.required, Validators.min(0)]);
+  public title: FormControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
+  public amount: FormControl = new FormControl('', [Validators.required, Validators.min(0), Validators.max(1000)]);
   public currency: FormControl = new FormControl('', Validators.required);
+  public from: FormControl = new FormControl('', Validators.required);
+  public to: FormControl = new FormControl('', Validators.required);
   public date: FormControl = new FormControl('', Validators.required);
 
   jars: IJar[] = [];
@@ -51,15 +49,18 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
               private currencyService: CurrencyService) {
 
   }
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    throw new Error("Method not implemented.");
+  }
 
   ngOnInit(): void {
-    this.transferForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(3)]],
-      amount: ['', [Validators.required, Validators.min(0), Validators.max(1000)]],
-      currency: ['', Validators.required],
-      from: ['', Validators.required],
-      to: ['', Validators.required],
-      date: ['', Validators.required]
+    this.transferForm = new FormGroup({
+      title: this.title,
+      amount: this.amount,
+      currency: this.currency,
+      from: this.from,
+      to: this.to,
+      date: this.date
     },
       {
         validators: [this.transferCustomValidator]
@@ -80,21 +81,28 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
         },
         error: err => this.errorMessage = err
       });
+
+    this.onChanges();
   }
 
   ngAfterViewInit(): void {
+
     const controlBlurs: Observable<any>[] = this.formInputElements
       .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
+
     merge(this.transferForm.valueChanges, ...controlBlurs).pipe(
       debounceTime(800)
     );
+  }
+  onChanges(): void {
+    this.transferForm.valueChanges.subscribe(val => {
+      console.log(val);
+    });
   }
 
   get titleFrom() {
     return this.transferForm.get('title');
   }
-
-
 
   calculate(transferedForm: ITransfer, jars: IJar): void {
     for (const jar of this.jars) {
@@ -141,31 +149,23 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/']);
   }
 
-
-
-
   transferCustomValidator: ValidatorFn = (form: FormGroup) => {
     const curr = form.value.currency;
     const myFrom = form.value.from;
     const myTo = form.value.to;
-    console.log(form.value.to.currency, '<< currency step by tep too');
 
-    console.log(curr, '<<< currency');
-    console.log(form.value.from.jarName, '<<< step from by step');
+    console.log(myTo.currency, '<<<< id');
+    console.log(form.value.from.currency, '<< from');
+    console.log(form.value.to.currency, '<< to');
 
-    return null;
-// //     if (myFrom && myTo) {
-// //       if (form.value.from.jarName === 'PAY IN') {
-// //         return null;
-// //       }
-// //       form.get('to').setErrors({ customNotValid: true});
-// //       if (myFrom && myTo) {
-// //     if (form.value.from.currency === form.value.to.currency) {
-// //         return null;
-// //       }
-// //     form.get('from').setErrors({ customNotValid: true });
-// //     }
-// //   }
-// //   }
-}
+    console.log(curr, '<<< curr');
+
+
+    if (form) {
+      if (myFrom.currency === myTo.currency === curr) {
+        return null;
+      }
+    }
+    form.get('from').setErrors({ customNotValid: true });
+  }
 }

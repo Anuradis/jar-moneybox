@@ -7,12 +7,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { JarComponent } from './jar/jar.component';
 import { JarData } from './jar/jar-data';
-import { HttpClientModule } from '@angular/common/http';
 import { TransferHistoryComponent } from './transfer-history/transfer-history.component';
 import { MakeTransferComponent } from './make-transfer-form/make-transfer.component';
 import { NavbarComponent } from './navbar/navbar.component';

@@ -10,32 +10,32 @@ import { IJar } from '../jar/jar-interface';
 })
 export class JarService {
 
-private jarUrl = './api/jars';
+  private jarUrl = './api/jars';
 
 
   constructor(private http: HttpClient) { }
 
   getJars(): Observable<IJar[]> {
     return this.http.get<IJar[]>(this.jarUrl)
-    .pipe(
-      catchError(this.handleError)
-    );
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   addNewJar(createdJar: IJar): Observable<IJar> {
     const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<IJar>(this.jarUrl, createdJar, {headers})
-    .pipe(
-      map( () => createdJar),
-      catchError(this.handleError)
-    );
+    return this.http.post<IJar>(this.jarUrl, createdJar, { headers })
+      .pipe(
+        map(() => createdJar),
+        catchError(this.handleError)
+      );
   }
 
   updateJar(newValue: IJar): Observable<IJar> {
     const headers: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<IJar>(this.jarUrl, newValue, {headers})
+    return this.http.post<IJar>(this.jarUrl, newValue, { headers })
       .pipe(
-        map( () => newValue),
+        map(() => newValue),
         catchError(this.handleError)
       );
   }

@@ -16,9 +16,9 @@ export class TransferService {
 
   getTransfers(): Observable<ITransfer[]> {
     return this.http.get<ITransfer[]>(this.transferUrl)
-    .pipe(
-      catchError(this.handleError)
-    );
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   private handleError(err) {

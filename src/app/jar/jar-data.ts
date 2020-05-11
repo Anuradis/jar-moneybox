@@ -9,20 +9,14 @@ export class JarData implements InMemoryDbService {
     const jars: IJar[] = [
       {
         id: 1,
-        jarName: 'PAY IN',
-        accountBalance: 999999000,
-        currency: ''
-      },
-      {
-        id: 2,
-        jarName: 'exampleAcc',
-        accountBalance: 600,
-        currency: 'USD'
+        jarName: 'ExampleAcc',
+        accountBalance: 999999,
+        currency: 'PLN'
       },
     ];
     const transfers: ITransfer[] = [
       {
-        title: 'exampleAcc',
+        title: 'ExampleAcc',
         amount: 10,
         currency: 'PLN',
         from: {
@@ -36,7 +30,7 @@ export class JarData implements InMemoryDbService {
       },
     ];
     const currencyOptions = [
-      '', 'PLN', 'EUR', 'USD', 'GBP', 'CHF', 'JPY'
+       'PLN', 'EUR', 'USD', 'GBP', 'CHF', 'JPY'
     ];
     return {transfers, jars, currencyOptions};
   }
