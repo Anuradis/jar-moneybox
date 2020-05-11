@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand navbar-dark bg-secondary fixed-top">
+  <div class="container">
+    <a class="navbar-brand text-warning" [routerLink]="['/']">MoneyBox App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02"
+      aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="navbar-nav mr-left">
+      <li class="nav-item">
+        <a class="nav-link text-warning" [routerLink]="['/transfer']">Make Transfer</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav mr-right">
+      <li class="nav-item">
+        <a class="nav-link text-warning" [routerLink]="['/newjar']">Create Jar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-warning" [routerLink]="['/settings']">Settings</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<router-outlet></router-outlet>

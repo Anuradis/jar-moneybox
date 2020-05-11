@@ -1,1 +1,80 @@
-/* You can add global styles to this file, and also import other style files */
+div, span, p {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+background-color:#F8F9FA;
+}
+
+ul {
+  list-style-type: none;
+  position: relative;
+  color: #f0ad4e;
+  font-weight: 500;
+  }
+.main__jar {
+  height: 45vh;
+  max-height: 45vh;
+  margin-bottom: 18px;
+  background-image: url("./assets/images/jar_img.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+
+.main_jar--transfer-btn {
+  background-color: none;
+  color:black;
+  border: 3px solid black;
+  position: absolute;
+  right: 42px;
+  width: 200px;
+  border-radius: 15px;
+}
+
+.history__table--sticky-header {
+margin-top: 63px;
+ min-height: 31vh;
+ overflow-y: auto; height: 31vh;
+ bottom: 200px;
+}
+
+.history__table--sticky-header thead th{
+position: sticky; top:0;
+}
+
+.vertical {
+  margin: 3rem 0px;
+  z-index: 1;
+}
+.form_main {
+  padding-top: 2.2rem;
+  min-height: 45vh;
+  background-color: #F8F9FA;
+  margin-bottom: 20px;
+  border-radius: 15px;
+}
+
+
+.form_title {
+  padding: 15px;
+  font-size: 1.2rem;
+  color: #6C757D;
+}
+.custom {
+  width: 160px;
+}
+
+@media only screen and (min-width: 2500px)  {
+  .text-mac {
+    font-size: 2rem;
+
+  }}
+
+  @media only screen and (max-width: 800px)  {
+    .main__jar {
+      margin-bottom: 1.5rem;
+
+    }}
