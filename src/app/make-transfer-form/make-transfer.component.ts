@@ -149,21 +149,23 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
     const myFrom = form.value.from;
     const myTo = form.value.to;
     console.log(form.value.to.currency, '<< currency step by tep too');
+
     console.log(curr, '<<< currency');
     console.log(form.value.from.jarName, '<<< step from by step');
 
-
-    while (curr && myFrom && myTo) {
-      if (form.value.to.currency === curr && form.value.from.jarName === 'PAY IN') {
-        return null;
-      }
-      form.get('to').setErrors({ customNotValid: true});
-    }
-    if (curr && myFrom && myTo) {
-    if (form.value.from.currency === curr && curr === form.value.to.currency) {
-        return null;
-      }
-    form.get('from').setErrors({ customNotValid: true });
-    }
-  }
+    return null;
+// //     if (myFrom && myTo) {
+// //       if (form.value.from.jarName === 'PAY IN') {
+// //         return null;
+// //       }
+// //       form.get('to').setErrors({ customNotValid: true});
+// //       if (myFrom && myTo) {
+// //     if (form.value.from.currency === form.value.to.currency) {
+// //         return null;
+// //       }
+// //     form.get('from').setErrors({ customNotValid: true });
+// //     }
+// //   }
+// //   }
+}
 }
