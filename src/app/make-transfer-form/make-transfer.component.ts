@@ -9,6 +9,7 @@ import { IJar } from '../jar/jar-interface';
 import { ITransfer } from 'src/app/transfer-history/transfer-interface';
 import { TransferService } from 'src/app/services/transfer.service';
 import { CurrencyService } from '../services/currency.service';
+import { format } from 'url';
 
 @Component({
   selector: 'app-make-transfer',
@@ -44,20 +45,21 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
   private sub: Subscription;
 
   constructor(private router: Router,
-    private jarService: JarService,
-    private transferService: TransferService,
-    private currencyService: CurrencyService) {
+              private fb: FormBuilder,
+              private jarService: JarService,
+              private transferService: TransferService,
+              private currencyService: CurrencyService) {
 
   }
 
   ngOnInit(): void {
-    this.transferForm = new FormGroup({
-      title: this.title,
-      from: this.from,
-      to: this.to,
-      amount: this.amount,
-      currency: this.currency,
-      date: this.date
+    this.transferForm = this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(3)]],
+      amount: ['', [Validators.required, Validators.min(0), Validators.max(1000)]],
+      currency: ['', Validators.required],
+      from: ['', Validators.required],
+      to: ['', Validators.required],
+      date: ['', Validators.required]
     },
       {
         validators: [this.transferCustomValidator]
@@ -87,6 +89,12 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
       debounceTime(800)
     );
   }
+
+  get titleFrom() {
+    return this.transferForm.get('title');
+  }
+
+
 
   calculate(transferedForm: ITransfer, jars: IJar): void {
     for (const jar of this.jars) {
@@ -140,25 +148,22 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
     const curr = form.value.currency;
     const myFrom = form.value.from;
     const myTo = form.value.to;
-    const title = form.value.title;
-    const amount = form.value.amount;
-    const date = form.value.date;
-    console.log(curr, '<<<  curr');
-    console.log(myFrom, '<<<  my from');
-    console.log(myTo, '<<<  myto');
-    console.log(title, '<<mytitle');
-    console.log(amount, '<<myAmount');
-    console.log(date, 'mydate');
+    console.log(form.value.to.currency, '<< currency step by tep too');
+    console.log(curr, '<<< currency');
+    console.log(form.value.from.jarName, '<<< step from by step');
 
-if()
 
-    if (curr && myFrom && myTo) {
-      if (myFrom.currency === myTo.currency) {
-        if (myFrom.currency === curr && myTo.currency === curr && curr === myTo.Form.currency && curr === myFrom.currency) {
-          return null;
-        }
+    while (curr && myFrom && myTo) {
+      if (form.value.to.currency === curr && form.value.from.jarName === 'PAY IN') {
+        return null;
       }
-      form.get('from').setErrors({ customNotValid: true });
+      form.get('to').setErrors({ customNotValid: true});
+    }
+    if (curr && myFrom && myTo) {
+    if (form.value.from.currency === curr && curr === form.value.to.currency) {
+        return null;
+      }
+    form.get('from').setErrors({ customNotValid: true });
     }
   }
 }

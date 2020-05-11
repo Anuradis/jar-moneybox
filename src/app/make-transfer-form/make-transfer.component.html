@@ -1,112 +1,102 @@
 <div class="container mt-4 form_main">
   <p class="form_title">{{pageTitle}}</p>
-    <form novalidate autocomplete="off"
-          (ngSubmit)="saveTransfer()"
-          [formGroup]="transferForm">
-        <div class="form-group row">
-          <label class="col-form-label col-md-1"
-                for="titleId">Title</label>
-            <div class="col-md-3">
-            <input class="form-control"
-                  id="Title"
-                  type="text"
-                  placeholder="required"
-                  formControlName="title" />
-            </div>
-            <label class="col-form-label col-md-1"
-            for="amountId">Amount</label>
-            <div class="col-md-3">
-              <input class="form-control"
-                id="amountId"
-                type="number"
-                placeholder="required"
-                formControlName="amount"/>
-            </div>
-            <label class="col-form-label col-md-1">
-            Currency
-            </label>
-            <div class="col-md-3">
-              <select class="form-control"
-                id="currencyId"
-                      type="text"
-                      placeholder="(required)"
-                      formControlName="currency">
-                      <option selected disabled value="">Select</option>
-                <option *ngFor="let currency of currencyOptions | slice:1; let i = index">{{currency}}</option>
-              </select>
-            </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-1 col-form-label" for="fromId">From</label>
-                  <div class="col-md-3">
-                    <select class="form-control"
-                        id="jarNameId"
-                        type="text"
-                        placeholder="(required)"
-                        formControlName="from">
-                        <option selected disabled value="">Select</option>
-                        <option *ngFor="let nameFrom of jars" [ngValue]='nameFrom'>
-                        {{nameFrom.jarName}}</option>
-                    </select>
-                    <!-- {{ transferForm.hasError() | json }} has error -->
-                    {{ transferForm.get('from').hasError('customNotValid') | json }}
-                    <div class='invalid-feedback' *ngIf="transferForm.get('from').hasError('customNotValid')">
-                      this is my error
-                    </div>
-                    <div class='invalid-feedback' *ngIf="transferForm.get('from').hasError('customNotValid')">
-                      this is my error
-                    </div>
+  <form novalidate autocomplete="off" (ngSubmit)="saveTransfer()" [formGroup]="transferForm">
+    <div class="form-group row">
+      <label class="col-form-label col-md-1" for="titleId">Title</label>
+      <div class="col-md-3">
+        <input class="form-control" id="Title" type="text" formControlName="title"
+          [class.is-invalid]="titleFrom.invalid && titleFrom.touched" />
 
-                  </div>
-                  <label class="col-md-1 col-form-label"
-                    for="productCodeId">To</label>
-                    <div class="col-md-3">
-                      <select class="form-control"
-                        id="jarNameId"
-                        type="text"
-                        placeholder="(required)"
-                        formControlName="to">
-                        <option selected disabled value="">Select</option>
-                      <option *ngFor="let nameTo of jars | slice:1; let i = index" [ngValue]='nameTo'>{{nameTo.jarName}}</option>
-                    </select>
-                  </div>
-                  <label class="col-md-1 col-form-label"
-                    for="date">Date</label>
-                    <div class="col-md-3">
-                      <input class="form-control form-control"
-                        id="dateId"
-                        type="text"
-                        placeholder="required"
-                        formControlName="date"
-                        bsDatepicker>
+        <div *ngIf="titleFrom.valid && titleFrom.touched"></div>
+        <small *ngIf="titleFrom.errors?.required" class="invalid-feedback">Title is required</small>
+        <small *ngIf="titleFrom.errors?.minlength" class="invalid-feedback">Title must be at least 3 characers are
+          required</small>
+      </div>
+      <label class="col-form-label col-md-1" for="amountId">Amount</label>
+      <div class="col-md-3">
+        <input class="form-control" id="amountId" type="number" id="Amount" formControlName="amount"
+          [class.is-invalid]="transferForm.get('amount').invalid && transferForm.get('amount').touched" />
+        <div *ngIf="transferForm.get('amount').valid && transferForm.get('amount').touched"></div>
+        <small *ngIf="transferForm.get('amount').errors?.required" class="invalid-feedback">Amount is required</small>
+        <small *ngIf="transferForm.get('amount').errors?.min" class="invalid-feedback">Number must be greater than
+          0</small>
+        <small *ngIf="transferForm.get('amount').errors?.max" class="invalid-feedback">Number must be less than
+          1000</small>
 
+      </div>
+      <label class="col-form-label col-md-1">
+        Currency
+      </label>
+      <div class="col-md-3">
+        <select class="form-control" id="currencyId" placeholder="required" type="text" formControlName="currency">
+          <option selected disabled value="">Select</option>
+          <option *ngFor="let currency of currencyOptions | slice:1; let i = index">{{currency}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-md-1 col-form-label" for="fromId">From</label>
+      <div class="col-md-3">
+        <select class="form-control" id="jarNameId" type="text" placeholder="(required)" formControlName="from"
+          [class.is-invalid]="transferForm.get('from').invalid && transferForm.get('from').touched">
+          <option selected disabled value="">Select</option>
+          <option *ngFor="let nameFrom of jars" [ngValue]='nameFrom'>
+            {{nameFrom.jarName}}</option>
+        </select>
+        <div *ngIf="transferForm.get('from').valid && transferForm.get('from').touched"></div>
+        <small *ngIf="transferForm.get('from').errors?.required" class="invalid-feedback">From Jar is required</small>
+        <!-- {{ transferForm.hasError() | json }} has error -->
+        {{ transferForm.get('from').hasError('customNotValid') | json }}
+        <div class='invalid-feedback' *ngIf="transferForm.get('from').hasError('customNotValid')">
+          Correct currency, transfers are only possible between two similar account types.
+        </div>
+        <!-- <div class='invalid-feedback' *ngIf="transferForm.get('from').hasError('customNotValid')">
+          this is my error
+        </div> -->
 
-                </div>
-                  <div class="container mt-4">
-                    <div class="row">
-                      <div class="col text-center">
-                    <button class="btn btn-primary custom mr-3 btn-sm"
-                      type="submit"
-                      [title]="transferForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
-                      [disabled]="!transferForm.valid"
-                      > Make a transfer
-                    </button>
-                    <button class="btn custom btn-outline-secondary btn-sm mr-3"
-                        type="button"
-                        title="Cancel your edits"
-                        [routerLink]="['']">
-                          Cancel
-                    </button>
-                       </div>
-                    </div>
-                  </div>
-                </div>
-                  <span class="invalid-feedback">
+      </div>
+      <label class="col-md-1 col-form-label" for="productCodeId">To</label>
+      <div class="col-md-3">
+        <select class="form-control" id="jarNameId" type="text" formControlName="to"
+          [class.is-invalid]="transferForm.get('to').invalid && transferForm.get('to').touched">
+          <option selected disabled value="">Select</option>
+          <option *ngFor="let nameTo of jars | slice:1; let i = index" [ngValue]='nameTo'>{{nameTo.jarName}}</option>
+        </select>
+        <div *ngIf="transferForm.get('to').valid && transferForm.get('to').touched"></div>
+        <small *ngIf="transferForm.get('to').errors?.required" class="invalid-feedback">To Jar is required</small>
+      </div>
+      <label class="col-md-1 col-form-label" for="date">Date</label>
+      <div class="col-md-3">
+        <input class="form-control form-control" id="dateId" type="text" placeholder="required" formControlName="date"
+          bsDatepicker [class.is-invalid]="transferForm.get('date').invalid && transferForm.get('date').touched" />
+        <div *ngIf="transferForm.get('date').valid && transferForm.get('date').touched"></div>
+        <small *ngIf="transferForm.get('date').errors?.required" class="invalid-feedback">Date is required</small>
+        <small *ngIf="transferForm.get('date').errors?.min" class="invalid-feedback">Number must be greater than
+          0</small>
+        <small *ngIf="transferForm.get('date').errors?.max" class="invalid-feedback">Number must be less than
+          1000</small>
+
+      </div>
+      <div class="container mt-4">
+        <div class="row">
+          <div class="col text-center">
+            <button class="btn btn-primary custom mr-3 btn-sm" type="submit"
+              [title]="transferForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+              [disabled]="!transferForm.valid"> Make a transfer
+            </button>
+            <button class="btn custom btn-outline-secondary btn-sm mr-3" type="button" title="Cancel your edits"
+              [routerLink]="['']">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="invalid-feedback">
                 {{pageTitle}}
                 </span>
-          </form>
-        </div>
-        <div class="alert alert-danger"
-          *ngIf="errorMessage">{{errorMessage}}
-        </div>
-       <app-jar class="container"></app-jar>
+  </form>
+</div>
+<div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}
+</div>
+<app-jar class="container"></app-jar>

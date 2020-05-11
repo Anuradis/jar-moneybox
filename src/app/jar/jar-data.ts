@@ -10,50 +10,26 @@ export class JarData implements InMemoryDbService {
       {
         id: 1,
         jarName: 'PAY IN',
-        accountBalance: Number.POSITIVE_INFINITY,
+        accountBalance: 999999000,
         currency: ''
       },
       {
         id: 2,
-        jarName: 'pln',
+        jarName: 'exampleAcc',
         accountBalance: 600,
-        currency: 'PLN'
-      },
-      {
-        id: 3,
-        jarName: 'eur',
-        accountBalance: 600,
-        currency: 'EUR'
-      },
-      {
-        id: 4,
-        jarName: 'pln1',
-        accountBalance: 600,
-        currency: 'PLN'
-      },
-      {
-        id: 5,
-        jarName: 'eur1',
-        accountBalance: 600,
-        currency: 'EUR'
-      },
-      {
-        id: 6,
-        jarName: 'eur2',
-        accountBalance: 600,
-        currency: 'EUR'
+        currency: 'USD'
       },
     ];
     const transfers: ITransfer[] = [
       {
-        title: 'aaaaa',
+        title: 'exampleAcc',
         amount: 10,
         currency: 'PLN',
         from: {
-          id: 4, jarName: 'Zzww', accountBalance: 656, currency: 'EUR'
+          id: 4, jarName: 'example', accountBalance: 656, currency: 'EUR'
         },
         to: {
-          id: 4, jarName: 'wwws', accountBalance: 656, currency: 'EUR'
+          id: 4, jarName: 'example1', accountBalance: 656, currency: 'EUR'
         },
         id: 1,
         date: new Date()
