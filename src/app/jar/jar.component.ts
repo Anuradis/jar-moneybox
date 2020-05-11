@@ -12,20 +12,16 @@ export class JarComponent implements OnInit {
 
 
   jars: IJar[] = [];
-  currencyOptions: string[];
-  changeCurrencySettings: FormGroup;
 
   errorMessage = '';
 
   constructor(private jarService: JarService,
-    private currencyService: CurrencyService,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.jarService.getJars().subscribe({
       next: data => {
         this.jars = data;
-        console.log(this.jars);
       },
       error: err => this.errorMessage = err
     });

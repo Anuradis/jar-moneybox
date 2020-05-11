@@ -37,19 +37,11 @@
     <div class="form-group row">
       <label class="col-md-1 col-form-label" for="fromId">From</label>
       <div class="col-md-3">
-        <select class="form-control" id="jarNameId" type="text" placeholder="(required)" formControlName="from"
-          [class.is-invalid]="transferForm.get('from').invalid && transferForm.get('from').touched">
+        <select class="form-control" id="jarNameId" type="text" placeholder="(required)" formControlName="from">
           <option selected disabled value="">Select</option>
           <option *ngFor="let nameFrom of jars" [ngValue]='nameFrom'>
             {{nameFrom.jarName}}</option>
         </select>
-        <div *ngIf="transferForm.get('from').valid && transferForm.get('from').touched"></div>
-        <small *ngIf="transferForm.get('from').errors?.required" class="invalid-feedback">From Jar is required</small>
-        {{ transferForm.get('from').hasError('customNotValid') | json }}
-        <div class='invalid-feedback' *ngIf="transferForm.get('from').hasError('customNotValid')">
-          Correct currency, transfers are only possible between two similar account types.
-        </div>
-
       </div>
       <label class="col-md-1 col-form-label" for="productCodeId">To</label>
       <div class="col-md-3">

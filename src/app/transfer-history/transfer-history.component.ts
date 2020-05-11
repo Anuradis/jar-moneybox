@@ -10,25 +10,25 @@ import { ITransfer } from './transfer-interface';
 export class TransferHistoryComponent implements OnInit {
 
 
- transfers: ITransfer[] = [];
- sortedTransfers: any;
- sortDir = 1;
- tempList = [];
- errorMessage: string;
+  transfers: ITransfer[] = [];
+  sortedTransfers: any;
+  sortDir = 1;
+  tempList = [];
+  errorMessage: string;
 
   constructor(private transferService: TransferService) {
 
-   }
+  }
 
   ngOnInit() {
     this.transferService.getTransfers()
-    .subscribe({
-      next: data => {
-        this.transfers = data;
-        this.sortedTransfers = data;
-      },
-      error: err => this.errorMessage = err
-    });
+      .subscribe({
+        next: data => {
+          this.transfers = data;
+          this.sortedTransfers = data;
+        },
+        error: err => this.errorMessage = err
+      });
   }
 
   onSortClick($event, sortArr) {
@@ -56,8 +56,6 @@ export class TransferHistoryComponent implements OnInit {
         a = a.toString();
         b = b.toString();
       }
-      const z = a.localeCompare(b) * this.sortDir;
-      console.log(z);
       return a.localeCompare(b) * this.sortDir;
     });
   }

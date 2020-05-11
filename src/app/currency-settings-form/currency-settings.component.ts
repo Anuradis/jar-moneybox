@@ -47,7 +47,6 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
       .subscribe({
         next: data => {
           this.jars = data;
-          console.log(this.jars);
         },
         error: err => this.errorMessage = err
       });

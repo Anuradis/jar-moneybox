@@ -8,7 +8,7 @@
       <div class="col-md-4">
         <select class="form-control" id="nameId" type="text" placeholder="(required)" formControlName="jarName">
           <option selected disabled value="">Select</option>
-          <option *ngFor="let jar of jars let i = index" [ngValue]='jar'>
+          <option *ngFor="let jar of jars; let i = index" [ngValue]='jar'>
             {{jar.jarName}}</option>
         </select>
       </div>

@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChildren, ElementRef, OnChanges }
 import { FormBuilder, FormGroup, FormControl, Validators, FormControlName, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { Observable, Subscription, fromEvent, merge, from } from 'rxjs';
+import { Observable, fromEvent, merge } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { JarService } from 'src/app/services/jar.service';
 import { IJar } from '../jar/jar-interface';
@@ -16,7 +16,7 @@ import { CurrencyService } from '../services/currency.service';
   templateUrl: './make-transfer.component.html'
 })
 
-export class MakeTransferComponent implements OnInit, AfterViewInit, OnChanges {
+export class MakeTransferComponent implements OnInit, AfterViewInit {
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
   pageTitle = 'Make Transfer';
@@ -24,8 +24,8 @@ export class MakeTransferComponent implements OnInit, AfterViewInit, OnChanges {
   errorOnFromBalance: string;
   errorOnToBalance: string;
   transferForm: FormGroup;
+  flag: boolean;
 
-  payementButton;
 
   public title: FormControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
   public amount: FormControl = new FormControl('', [Validators.required, Validators.min(0), Validators.max(1000)]);
@@ -40,17 +40,12 @@ export class MakeTransferComponent implements OnInit, AfterViewInit, OnChanges {
   transferedForm: ITransfer;
   currencyOptions: string[];
 
-  private sub: Subscription;
-
   constructor(private router: Router,
-              private fb: FormBuilder,
-              private jarService: JarService,
-              private transferService: TransferService,
-              private currencyService: CurrencyService) {
+    private fb: FormBuilder,
+    private jarService: JarService,
+    private transferService: TransferService,
+    private currencyService: CurrencyService) {
 
-  }
-  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
-    throw new Error("Method not implemented.");
   }
 
   ngOnInit(): void {
@@ -63,7 +58,7 @@ export class MakeTransferComponent implements OnInit, AfterViewInit, OnChanges {
       date: this.date
     },
       {
-        validators: [this.transferCustomValidator]
+        // validators: [this.transferCustomValidator]
       });
 
     this.jarService.getJars()
@@ -82,7 +77,6 @@ export class MakeTransferComponent implements OnInit, AfterViewInit, OnChanges {
         error: err => this.errorMessage = err
       });
 
-    this.onChanges();
   }
 
   ngAfterViewInit(): void {
@@ -93,11 +87,6 @@ export class MakeTransferComponent implements OnInit, AfterViewInit, OnChanges {
     merge(this.transferForm.valueChanges, ...controlBlurs).pipe(
       debounceTime(800)
     );
-  }
-  onChanges(): void {
-    this.transferForm.valueChanges.subscribe(val => {
-      console.log(val);
-    });
   }
 
   get titleFrom() {
@@ -137,7 +126,6 @@ export class MakeTransferComponent implements OnInit, AfterViewInit, OnChanges {
             });
       } else if (this.transferForm.invalid) {
         console.log(this.transferForm.invalid);
-        // this.onSaveComplete();
       }
     } else {
       this.errorMessage = 'Please correct the validation errors.';
@@ -154,15 +142,8 @@ export class MakeTransferComponent implements OnInit, AfterViewInit, OnChanges {
     const myFrom = form.value.from;
     const myTo = form.value.to;
 
-    console.log(myTo.currency, '<<<< id');
-    console.log(form.value.from.currency, '<< from');
-    console.log(form.value.to.currency, '<< to');
-
-    console.log(curr, '<<< curr');
-
-
-    if (form) {
-      if (myFrom.currency === myTo.currency === curr) {
+    if (curr && myFrom && myTo) {
+      if (curr === myFrom.currency && curr === myTo.currency) {
         return null;
       }
     }
