@@ -49,7 +49,7 @@
             {{nameFrom.jarName}}</option>
         </select>
         <div *ngIf="transferForm.get('from').valid && transferForm.get('from').touched"></div>
-        <small *ngIf="transferForm.get('from').errors?.required" class="invalid-feedback">From account field is required, if not accounts available, change currency selection.</small>
+        <small *ngIf="transferForm.get('from').errors?.required" class="invalid-feedback">From account field is required, if no account available, change currency selection.</small>
       </div>
       <label class="col-md-1 col-form-label" for="productCodeId">To</label>
       <div class="col-md-3">
@@ -59,7 +59,7 @@
           <option *ngFor="let nameTo of avaiableToJars" [ngValue]='nameTo'>{{nameTo.jarName}}</option>
         </select>
         <div *ngIf="transferForm.get('to').valid && transferForm.get('to').touched"></div>
-        <small *ngIf="transferForm.get('to').errors?.required" class="invalid-feedback">To account field is required, if not accounts available, change currency selection.</small>
+        <small *ngIf="transferForm.get('to').errors?.required" class="invalid-feedback">To account field is required, if no account available, change currency selection.</small>
       </div>
       <label class="col-md-1 col-form-label" for="date">Date</label>
       <div class="col-md-3">
