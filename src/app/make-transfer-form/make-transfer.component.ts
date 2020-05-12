@@ -39,6 +39,8 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
   toBalance: IJar;
   transferedForm: ITransfer;
   currencyOptions: string[];
+  avaiableFromJars: IJar[] = [];
+  avaiableToJars: IJar[] = [];
 
   constructor(private router: Router,
     private fb: FormBuilder,
@@ -91,6 +93,28 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
 
   get titleFrom() {
     return this.transferForm.get('title');
+  }
+
+  updateAccountBasedOnCurrency() {
+    if (this.transferForm.value.currency !== '') {
+      for (const jar of this.jars) {
+        if (jar.currency === this.transferForm.value.currency) {
+          this.avaiableFromJars.push(jar);
+        } else {
+          this.avaiableFromJars = [];
+        }
+      }
+    }
+  }
+
+  updateAccountBasedOnFrom(): void {
+    if (this.transferForm.value.from !== '') {
+      for (const jarFrom of this.avaiableFromJars) {
+        if (jarFrom.jarName === this.transferForm.value.from.jarName) {
+          this.avaiableToJars = this.avaiableFromJars.filter(e => e !== jarFrom);
+        }
+      }
+    }
   }
 
   calculate(transferedForm: ITransfer, jars: IJar): void {

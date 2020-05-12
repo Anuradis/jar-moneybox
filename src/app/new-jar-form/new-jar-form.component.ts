@@ -40,14 +40,10 @@ export class NewJarFormComponent implements OnInit, AfterViewInit {
 
     });
 
-    this.newJarForm.valueChanges.subscribe(data => console.log('formchanges', data));
-
-
     this.jarService.getJars()
       .subscribe({
         next: data => {
           this.jars = data;
-          console.log(this.jars);
         },
         error: err => this.errorMessage = err
       });
