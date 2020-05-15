@@ -1,3 +1,8 @@
+.form-control::-webkit-input-placeholder {
+  color: #6C757D;;
+}
+
+
 div, span, p {
   padding: 0;
   margin: 0;
@@ -14,6 +19,7 @@ ul {
   font-weight: 500;
   }
 .main__jar {
+  position: relative;
   height: 45vh;
   max-height: 45vh;
   margin-bottom: 18px;
@@ -21,6 +27,11 @@ ul {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+.main__jar--list {
+  position: relative;
+  top: 10%;
 }
 
 
@@ -35,9 +46,8 @@ ul {
 }
 
 .history__table--sticky-header {
-margin-top: 63px;
- min-height: 31vh;
- overflow-y: auto; height: 31vh;
+ min-height: 25vh;
+ overflow-y: auto; height: 25vh;
  bottom: 200px;
 }
 
@@ -51,7 +61,7 @@ position: sticky; top:0;
 }
 .form_main {
   padding-top: 2.2rem;
-  min-height: 45vh;
+  min-height: 40vh;
   background-color: #F8F9FA;
   margin-bottom: 20px;
   border-radius: 15px;
@@ -59,9 +69,17 @@ position: sticky; top:0;
 
 
 .form_title {
-  padding: 15px;
+  padding: 10px;
   font-size: 1.2rem;
   color: #6C757D;
+}
+
+.search {
+  margin-top: 83px;
+}
+
+.search-input {
+  max-width: 170px;
 }
 .custom {
   width: 160px;
@@ -76,5 +94,7 @@ position: sticky; top:0;
   @media only screen and (max-width: 800px)  {
     .main__jar {
       margin-bottom: 1.5rem;
-
-    }}
+    }
+  th {
+    min-width: 124px;
+  }}

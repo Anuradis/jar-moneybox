@@ -1,29 +1,50 @@
-<div class="history__nav">
-  <div class="history__table--sticky-header">
-  <table class="table table-sm table-hover container">
-    <thead>
-      <tr>
-        <th scope="col">#Id<i i style='color:#f0ad4e' (click)="onSortClick($event, 'id')" class="my-icon fa fa-chevron-up"></i></th>
-        <th scope="col">Title<i i style='color:#f0ad4e' (click)="onSortClick($event, 'title')" class="my-icon fa fa-chevron-up"></i></th>
-        <th scope="col">From</th>
-        <th scope="col">To</th>
-        <th scope="col">Amount <i style='color:#f0ad4e' (click)="onSortClick($event, 'amount')" class="my-icon fa fa-chevron-up"></i></th>
-        <th scope="col">Currency <i i style='color:#f0ad4e' (click)="onSortClick($event, 'currency')" class="my-icon fa fa-chevron-up"></i></th>
-        <th scope="col">Date <i i style='color:#f0ad4e' (click)="onSortClick($event, 'date')" class="my-icon fa fa-chevron-up"></i></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let transfer of sortedTransfers">
-        <th scope="row">{{transfer.id}}</th>
-        <td>{{transfer.title}}</td>
-        <td>{{transfer.from.jarName}}</td>
-        <td>{{transfer.to.jarName}}</td>
-        <td>{{transfer.amount}}</td>
-        <td>{{transfer.currency}}</td>
-        <td>{{transfer.date | date: 'medium'}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<div class="container search">
+  <div class="row">
+    <div class="col-md-6">
+      <p class="form_title">Transfer History</p>
+    </div>
+    <div class="col-md-6">
+      <form class="form-inline float-right">
+        <div class="md-form my-0">
+          Filter by:
+          <input class="form-control mr-sm-2 search-input" name="listFilter" type="text" placeholder="'In' transactions"
+            aria-label="Search" [(ngModel)]='listFilter'>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
+<div class="history__nav">
+  <div class="history__table--sticky-header container table-responsive-md">
+    <table class="table table-sm table-hover ">
+      <thead>
+        <tr>
+          <th scope="col">#Id <span><i i style='color:#f0ad4e' (click)="onSortClick($event, 'id')"
+              class="my-icon fa fa-chevron-up"></i></span></th>
+          <th scope="col">Title <i i style='color:#f0ad4e' (click)="onSortClick($event, 'title')"
+              class="my-icon fa fa-chevron-up"></i></th>
+          <th scope="col">In</th>
+          <th scope="col">Out</th>
+          <th scope="col">Amount <i style='color:#f0ad4e' (click)="onSortClick($event, 'amount')"
+              class="my-icon fa fa-chevron-up"></i></th>
+          <th scope="col">Currency <i i style='color:#f0ad4e' (click)="onSortClick($event, 'currency')"
+              class="my-icon fa fa-chevron-up"></i></th>
+          <th scope="col">Date <i i style='color:#f0ad4e' (click)="onSortClick($event, 'date')"
+              class="my-icon fa fa-chevron-up"></i></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transfer of sortedTransfers">
+          <th scope="row">{{transfer.id}}</th>
+          <td>{{transfer.title}}</td>
+          <td>{{transfer.to.jarName}}</td>
+          <td>{{transfer.from.jarName}}</td>
+          <td>{{transfer.amount}}</td>
+          <td>{{transfer.currency}}</td>
+          <td>{{transfer.date | date: 'shortDate'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

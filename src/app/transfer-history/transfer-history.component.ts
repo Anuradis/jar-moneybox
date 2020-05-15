@@ -10,11 +10,23 @@ import { ITransfer } from './transfer-interface';
 export class TransferHistoryComponent implements OnInit {
 
 
+  Title: 'Transfer History';
   transfers: ITransfer[] = [];
   sortedTransfers: any;
   sortDir = 1;
   tempList = [];
   errorMessage: string;
+  _listFilter = '';
+
+  get listFilter(): string {
+    return this._listFilter;
+  }
+
+  set listFilter(value: string) {
+    this._listFilter = value;
+    this.sortedTransfers = this.listFilter ? this.perfomFilter(this.listFilter) : this.transfers;
+    console.log(this.listFilter);
+  }
 
   constructor(private transferService: TransferService) {
 
@@ -25,11 +37,17 @@ export class TransferHistoryComponent implements OnInit {
       .subscribe({
         next: data => {
           this.transfers = data;
-          this.sortedTransfers = data;
+          this.sortedTransfers = this.transfers;
         },
         error: err => this.errorMessage = err
       });
   }
+
+  perfomFilter(filterBy: string): ITransfer[] {
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.transfers.filter((transfer: ITransfer) =>
+    transfer.to.jarName.toLocaleLowerCase().indexOf(filterBy) !== -1);
+}
 
   onSortClick($event, sortArr) {
     const target = $event.currentTarget,

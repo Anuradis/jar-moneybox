@@ -2,34 +2,48 @@
   <p class="form_title">{{pageTitle}}</p>
   <form novalidate (ngSubmit)="submitNewJar()" [formGroup]="newJarForm">
     <div class="form-group row">
-      <label class="col-form-label col-md-1" for="nameId">Name:</label>
+      <label class="col-form-label col-md-1" for="nameId">Name</label>
       <div class="col-md-3">
-        <input class="form-control" id="name" type="text" placeholder="required" formControlName="jarName" />
+        <input class="form-control" id="name" type="text" formControlName="jarName"
+          [class.is-invalid]="newJarForm.get('jarName').invalid && newJarForm.get('jarName').touched" />
+        <div *ngIf="newJarForm.get('jarName').valid && newJarForm.get('jarName').touched"></div>
+        <small *ngIf="newJarForm.get('jarName').errors?.required" class="invalid-feedback">Name is
+          required</small>
       </div>
-      <label class="col-form-label col-md-1" for="balanceId">Balance:</label>
+      <label class="col-form-label col-md-1" for="balanceId">Balance</label>
       <div class="col-md-3">
-        <input class="form-control" id="balanceId" type="number" placeholder="required"
-          formControlName="accountBalance" />
+        <input class="form-control" id="balanceId" type="number" formControlName="accountBalance"
+        [class.is-invalid]="newJarForm.get('accountBalance').invalid && newJarForm.get('accountBalance').touched" />
+        <div *ngIf="newJarForm.get('accountBalance').valid && newJarForm.get('accountBalance').touched"></div>
+        <small *ngIf="newJarForm.get('accountBalance').errors?.required" class="invalid-feedback">Balance is required</small>
+        <small *ngIf="newJarForm.get('accountBalance').errors?.min" class="invalid-feedback">Number must be greater than
+          0</small>
+        <small *ngIf="newJarForm.get('accountBalance').errors?.max" class="invalid-feedback">Number must be less than
+          100000</small>
       </div>
       <label class="col-form-label col-md-1">
-        Currency:
+        Currency
       </label>
       <div class="col-md-3">
-        <select class="form-control" id="currencyId" type="text" placeholder="required" formControlName="currency">
+        <select class="form-control" id="currencyId" type="text" placeholder="required" formControlName="currency"
+          [class.is-invalid]="newJarForm.get('currency').invalid && newJarForm.get('currency').touched">
           <option disabled selected value="">Select</option>
           <option *ngFor="let currency of currencyOptions ; let i = index">{{currency}}</option>
         </select>
+        <div *ngIf="newJarForm.get('currency').valid && newJarForm.get('currency').touched"></div>
+        <small *ngIf="newJarForm.get('currency').errors?.required" class="invalid-feedback">Currency is
+          required</small>
       </div>
     </div>
     <div class="container mt-4">
       <div class="row">
         <div class="col text-center">
-          <button class="btn btn-primary custom mr-2 btn-sm" type="submit"
+          <button class="btn btn-primary custom mr-3 btn-sm mb-2" type="submit"
             [title]="newJarForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
             [disabled]="!newJarForm.valid">
             Save
           </button>
-          <button class="btn custom btn-outline-secondary btn-sm ml-2" type="button" title="Cancel your edits"
+          <button class="btn custom btn-outline-secondary btn-sm mr-3 mb-2" type="button" title="Cancel your edits"
             [routerLink]="['']">
             Cancel
           </button>
