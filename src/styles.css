@@ -85,6 +85,11 @@ position: sticky; top:0;
   width: 160px;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
 @media only screen and (min-width: 2500px)  {
   .text-mac {
     font-size: 2rem;
