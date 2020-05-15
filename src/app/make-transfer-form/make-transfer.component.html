@@ -2,8 +2,8 @@
   <p class="form_title">{{pageTitle}}</p>
   <form novalidate autocomplete="off" (ngSubmit)="saveTransfer()" [formGroup]="transferForm">
     <div class="form-group row">
-      <label class="col-form-label col-md-1" for="titleId">Title</label>
-      <div class="col-md-3">
+      <label class="col-form-label col-lg-1 " for="titleId">Title</label>
+      <div class="col-lg-3 ">
         <input class="form-control" id="Title" type="text" formControlName="title"
           [class.is-invalid]="titleFrom.invalid && titleFrom.touched" />
 
@@ -12,8 +12,8 @@
         <small *ngIf="titleFrom.errors?.minlength" class="invalid-feedback">Title must be at least 3 characers are
           required</small>
       </div>
-      <label class="col-form-label col-md-1" for="amountId">Amount</label>
-      <div class="col-md-3">
+      <label class="col-form-label col-lg-1" for="amountId">Amount</label>
+      <div class="col-lg-3 ">
         <input class="form-control" id="amountId" type="number" id="Amount" formControlName="amount"
           [class.is-invalid]="transferForm.get('amount').invalid && transferForm.get('amount').touched" />
         <div *ngIf="transferForm.get('amount').valid && transferForm.get('amount').touched"></div>
@@ -24,10 +24,10 @@
           1000</small>
 
       </div>
-      <label class="col-form-label col-md-1">
+      <label class="col-form-label col-lg-1 ">
         Currency
       </label>
-      <div class="col-md-3">
+      <div class="col-lg-3">
         <select class="form-control" id="currencyId" type="text" formControlName="currency"
           (ngModelChange)='updateAccountBasedOnCurrency()'
           [class.is-invalid]="transferForm.get('currency').invalid && transferForm.get('currency').touched">
@@ -40,8 +40,8 @@
       </div>
     </div>
     <div class="form-group row">
-      <label class="col-md-1 col-form-label" for="fromId">From</label>
-      <div class="col-md-3">
+      <label class="col-lg-1 col-form-label" for="fromId">From</label>
+      <div class="col-lg-3 ">
         <select class="form-control" id="jarFromId" type="text" formControlName="from"
           (ngModelChange)="updateAccountBasedOnFrom()"
           [class.is-invalid]="transferForm.get('from').invalid && transferForm.get('from').touched">
@@ -53,8 +53,8 @@
         <small *ngIf="transferForm.get('from').errors?.required" class="invalid-feedback">From account field is
           required, if not accounts available, change currency selection.</small>
       </div>
-      <label class="col-md-1 col-form-label" for="productCodeId">To</label>
-      <div class="col-md-3">
+      <label class="col-lg-1 col-form-label" for="productCodeId">To</label>
+      <div class="col-lg-3">
         <select class="form-control" id="jarToId" type="text" formControlName="to"
           [class.is-invalid]="transferForm.get('to').invalid && transferForm.get('to').touched">
           <option selected disabled value="">Select</option>
@@ -64,8 +64,8 @@
         <small *ngIf="transferForm.get('to').errors?.required" class="invalid-feedback">To account field is required, if
           not accounts available, change currency selection.</small>
       </div>
-      <label class="col-md-1 col-form-label" for="date">Date</label>
-      <div class="col-md-3">
+      <label class="col-lg-1 col-form-label" for="date">Date</label>
+      <div class="col-lg-3">
         <input class="form-control form-control" id="dateId" type="text" formControlName="date" bsDatepicker
           [class.is-invalid]="transferForm.get('date').invalid && transferForm.get('date').touched" />
         <div *ngIf="transferForm.get('date').valid && transferForm.get('date').touched"></div>
@@ -90,9 +90,6 @@
         </div>
       </div>
     </div>
-    <span class="invalid-feedback">
-                {{pageTitle}}
-                </span>
   </form>
 </div>
 <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}

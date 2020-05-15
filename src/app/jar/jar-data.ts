@@ -11,19 +11,21 @@ export class JarData implements InMemoryDbService {
         id: 1,
         jarName: 'ExampleAcc',
         accountBalance: 600,
-        currency: 'PLN'
+        currency: 'EUR'
       },
       {
         id: 2,
         jarName: 'Saving Box',
         accountBalance: 100000,
-        currency: 'PLN'
+        currency: 'EUR'
+
+
       },
       {
         id: 3,
         jarName: 'Jar',
         accountBalance: 400,
-        currency: 'PLN'
+        currency: 'EUR'
       },
     ];
     const transfers: ITransfer[] = [
@@ -32,10 +34,10 @@ export class JarData implements InMemoryDbService {
         amount: 10,
         currency: 'PLN',
         from: {
-          id: 4, jarName: 'example', accountBalance: 656, currency: 'EUR'
+          id: 4, jarName: 'Jar', accountBalance: 656, currency: 'EUR'
         },
         to: {
-          id: 4, jarName: 'example1', accountBalance: 656, currency: 'EUR'
+          id: 4, jarName: 'Saving Box', accountBalance: 656, currency: 'EUR'
         },
         id: 1,
         date: new Date()

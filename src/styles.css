@@ -1,15 +1,18 @@
 .form-control::-webkit-input-placeholder {
-  color: #6C757D;;
+  color: #6C757D;
+  ;
 }
 
 
-div, span, p {
+div,
+span,
+p {
   padding: 0;
   margin: 0;
 }
 
 body {
-background-color:#F8F9FA;
+  background-color: #F8F9FA;
 }
 
 ul {
@@ -17,7 +20,8 @@ ul {
   position: relative;
   color: #f0ad4e;
   font-weight: 500;
-  }
+}
+
 .main__jar {
   position: relative;
   height: 45vh;
@@ -37,7 +41,7 @@ ul {
 
 .main_jar--transfer-btn {
   background-color: none;
-  color:black;
+  color: black;
   border: 3px solid black;
   position: absolute;
   right: 42px;
@@ -46,19 +50,22 @@ ul {
 }
 
 .history__table--sticky-header {
- min-height: 25vh;
- overflow-y: auto; height: 25vh;
- bottom: 200px;
+  min-height: 25vh;
+  overflow-y: auto;
+  height: 25vh;
+  bottom: 200px;
 }
 
-.history__table--sticky-header thead th{
-position: sticky; top:0;
+.history__table--sticky-header thead th {
+  position: sticky;
+  top: 0;
 }
 
 .vertical {
   margin: 3rem 0px;
   z-index: 1;
 }
+
 .form_main {
   padding-top: 2.2rem;
   min-height: 40vh;
@@ -81,11 +88,17 @@ position: sticky; top:0;
 .search-input {
   max-width: 170px;
 }
+
 .custom {
   width: 160px;
 }
 
-@media only screen and (min-width: 2500px)  {
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
+@media only screen and (min-width: 2500px) {
   .text-mac {
     font-size: 1.7rem;
   }
@@ -94,10 +107,11 @@ position: sticky; top:0;
   }
 }
 
-  @media only screen and (max-width: 800px)  {
-    .main__jar {
-      margin-bottom: 1.5rem;
-    }
+@media only screen and (max-width: 800px) {
+  .main__jar {
+    margin-bottom: 1.5rem;
+  }
   th {
     min-width: 124px;
-  }}
+  }
+}
