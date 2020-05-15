@@ -12,12 +12,10 @@ export class TransferHistoryComponent implements OnInit {
 
   Title: 'Transfer History';
   transfers: ITransfer[] = [];
-  filtredTransfers: ITransfer[] = [];
   sortedTransfers: any;
   sortDir = 1;
   tempList = [];
   errorMessage: string;
-
   _listFilter = '';
 
   get listFilter(): string {
@@ -47,8 +45,6 @@ export class TransferHistoryComponent implements OnInit {
 
   perfomFilter(filterBy: string): ITransfer[] {
     filterBy = filterBy.toLocaleLowerCase();
-    console.log(this.transfers,'<< sorted transfers');
-    console.log(filterBy,'<< filterBY');
     return this.transfers.filter((transfer: ITransfer) =>
     transfer.to.jarName.toLocaleLowerCase().indexOf(filterBy) !== -1);
 }

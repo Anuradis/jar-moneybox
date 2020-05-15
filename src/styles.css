@@ -61,7 +61,7 @@ position: sticky; top:0;
 }
 .form_main {
   padding-top: 2.2rem;
-  min-height: 45vh;
+  min-height: 40vh;
   background-color: #F8F9FA;
   margin-bottom: 20px;
   border-radius: 15px;
@@ -77,6 +77,10 @@ position: sticky; top:0;
 .search {
   margin-top: 83px;
 }
+
+.search-input {
+  max-width: 170px;
+}
 .custom {
   width: 160px;
 }
@@ -90,5 +94,7 @@ position: sticky; top:0;
   @media only screen and (max-width: 800px)  {
     .main__jar {
       margin-bottom: 1.5rem;
-
-    }}
+    }
+  th {
+    min-width: 124px;
+  }}
