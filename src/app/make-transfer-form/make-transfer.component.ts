@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators, FormControlName, Valid
 import { Router } from '@angular/router';
 
 import { Observable, fromEvent, merge } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, min } from 'rxjs/operators';
 import { JarService } from 'src/app/services/jar.service';
 import { IJar } from '../jar/jar-interface';
 import { ITransfer } from 'src/app/transfer-history/transfer-interface';
@@ -24,7 +24,6 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
   errorOnFromBalance: string;
   errorOnToBalance: string;
   transferForm: FormGroup;
-  flag: boolean;
 
 
   public title: FormControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
@@ -58,10 +57,7 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
       from: this.from,
       to: this.to,
       date: this.date
-    },
-      {
-        // validators: [this.transferCustomValidator]
-      });
+    });
 
     this.jarService.getJars()
       .subscribe({
