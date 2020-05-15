@@ -2,16 +2,16 @@
   <p class="form_title">{{pageTitle}}</p>
   <form novalidate (ngSubmit)="submitNewJar()" [formGroup]="newJarForm">
     <div class="form-group row">
-      <label class="col-form-label col-md-1" for="nameId">Name</label>
-      <div class="col-md-3">
+      <label class="col-form-label col-lg-1" for="nameId">Name</label>
+      <div class="col-lg-3">
         <input class="form-control" id="name" type="text" formControlName="jarName"
           [class.is-invalid]="newJarForm.get('jarName').invalid && newJarForm.get('jarName').touched" />
         <div *ngIf="newJarForm.get('jarName').valid && newJarForm.get('jarName').touched"></div>
         <small *ngIf="newJarForm.get('jarName').errors?.required" class="invalid-feedback">Name is
           required</small>
       </div>
-      <label class="col-form-label col-md-1" for="balanceId">Balance</label>
-      <div class="col-md-3">
+      <label class="col-form-label col-lg-1" for="balanceId">Balance</label>
+      <div class="col-lg-3">
         <input class="form-control" id="balanceId" type="number" formControlName="accountBalance"
         [class.is-invalid]="newJarForm.get('accountBalance').invalid && newJarForm.get('accountBalance').touched" />
         <div *ngIf="newJarForm.get('accountBalance').valid && newJarForm.get('accountBalance').touched"></div>
@@ -21,10 +21,10 @@
         <small *ngIf="newJarForm.get('accountBalance').errors?.max" class="invalid-feedback">Number must be less than
           100000</small>
       </div>
-      <label class="col-form-label col-md-1">
+      <label class="col-form-label col-lg-1">
         Currency
       </label>
-      <div class="col-md-3">
+      <div class="col-lg-3">
         <select class="form-control" id="currencyId" type="text" placeholder="required" formControlName="currency"
           [class.is-invalid]="newJarForm.get('currency').invalid && newJarForm.get('currency').touched">
           <option disabled selected value="">Select</option>
