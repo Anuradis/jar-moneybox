@@ -4,9 +4,10 @@
       <p class="form_title">Transfer History</p>
     </div>
     <div class="col-md-6">
-        <form class="form-inline">
+        <form class="form-inline float-right">
           <div class="md-form my-0">
-            <input class="form-control mr-sm-2 small" name="listFilter" type="text" placeholder="Search" aria-label="Search"
+            Filter by:
+            <input class="form-control mr-sm-2 small" name="listFilter" type="text" placeholder="'In' transactions" aria-label="Search"
             [(ngModel)] ='listFilter'>
           </div>
         </form>
@@ -21,8 +22,8 @@
       <tr>
         <th scope="col">#Id <i i style='color:#f0ad4e' (click)="onSortClick($event, 'id')" class="my-icon fa fa-chevron-up"></i></th>
         <th scope="col">Title <i i style='color:#f0ad4e' (click)="onSortClick($event, 'title')" class="my-icon fa fa-chevron-up"></i></th>
-        <th scope="col">From</th>
-        <th scope="col">To</th>
+        <th scope="col">In</th>
+        <th scope="col">Out</th>
         <th scope="col">Amount <i style='color:#f0ad4e' (click)="onSortClick($event, 'amount')" class="my-icon fa fa-chevron-up"></i></th>
         <th scope="col">Currency <i i style='color:#f0ad4e' (click)="onSortClick($event, 'currency')" class="my-icon fa fa-chevron-up"></i></th>
         <th scope="col">Date <i i style='color:#f0ad4e' (click)="onSortClick($event, 'date')" class="my-icon fa fa-chevron-up"></i></th>
@@ -32,8 +33,8 @@
       <tr *ngFor="let transfer of sortedTransfers">
         <th scope="row">{{transfer.id}}</th>
         <td>{{transfer.title}}</td>
-        <td>{{transfer.from.jarName}}</td>
         <td>{{transfer.to.jarName}}</td>
+        <td>{{transfer.from.jarName}}</td>
         <td>{{transfer.amount}}</td>
         <td>{{transfer.currency}}</td>
         <td>{{transfer.date | date: 'medium'}}</td>

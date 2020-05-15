@@ -50,9 +50,7 @@ export class TransferHistoryComponent implements OnInit {
     console.log(this.transfers,'<< sorted transfers');
     console.log(filterBy,'<< filterBY');
     return this.transfers.filter((transfer: ITransfer) =>
-    // console.log(transfer)
-    // console.log(transfer.from.jarName)
-    transfer.from.jarName.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    transfer.to.jarName.toLocaleLowerCase().indexOf(filterBy) !== -1);
 }
 
   onSortClick($event, sortArr) {
