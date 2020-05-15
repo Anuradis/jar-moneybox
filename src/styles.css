@@ -102,7 +102,6 @@ button:disabled {
   .text-mac {
     font-size: 1.7rem;
   }
-
   .main__jar--list {
     top: 20%;
   }
@@ -112,7 +111,6 @@ button:disabled {
   .main__jar {
     margin-bottom: 1.5rem;
   }
-
   th {
     min-width: 124px;
   }

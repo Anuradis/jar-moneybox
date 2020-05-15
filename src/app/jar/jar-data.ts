@@ -18,6 +18,8 @@ export class JarData implements InMemoryDbService {
         jarName: 'Saving Box',
         accountBalance: 100000,
         currency: 'EUR'
+
+
       },
       {
         id: 3,
