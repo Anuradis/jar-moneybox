@@ -16,7 +16,6 @@ export class CurrencySettingsComponent implements OnInit, AfterViewInit {
 
   pageTitle = 'Currency Settings';
   errorMessage: string;
-  editRequired = 'In order to change currency settings select jar name and searched currency';
   erronOnCreatedJar: string;
 
   newSettingsForm: FormGroup;

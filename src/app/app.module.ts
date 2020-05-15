@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { HttpClientModule } from '@angular/common/http';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { AppComponent } from './app.component';
 import { JarComponent } from './jar/jar.component';
@@ -40,6 +41,7 @@ import { CurrencySettingsComponent } from './currency-settings-form/currency-set
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
+    CollapseModule.forRoot(),
     AngularFontAwesomeModule,
     RouterModule.forRoot([
       {path: '', component: DashboardComponent, pathMatch: 'full'},

@@ -34,8 +34,7 @@ export class NewJarFormComponent implements OnInit, AfterViewInit {
       jarName: ['', [Validators.required,
       Validators.minLength(3),
       Validators.maxLength(25)]],
-      accountBalance: [Number, [Validators.min(0),
-      Validators.required]],
+      accountBalance: ['', [Validators.required, Validators.min(0), Validators.max(100000)]],
       currency: ['', Validators.required],
 
     });
