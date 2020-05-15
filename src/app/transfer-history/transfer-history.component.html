@@ -1,10 +1,26 @@
+<div class="container search">
+  <div class="row">
+    <div class="col-md-6">
+      <p class="form_title">Transfer History</p>
+    </div>
+    <div class="col-md-6">
+        <form class="form-inline">
+          <div class="md-form my-0">
+            <input class="form-control mr-sm-2 small" name="listFilter" type="text" placeholder="Search" aria-label="Search"
+            [(ngModel)] ='listFilter'>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+
 <div class="history__nav">
   <div class="history__table--sticky-header">
   <table class="table table-sm table-hover container">
     <thead>
       <tr>
-        <th scope="col">#Id<i i style='color:#f0ad4e' (click)="onSortClick($event, 'id')" class="my-icon fa fa-chevron-up"></i></th>
-        <th scope="col">Title<i i style='color:#f0ad4e' (click)="onSortClick($event, 'title')" class="my-icon fa fa-chevron-up"></i></th>
+        <th scope="col">#Id <i i style='color:#f0ad4e' (click)="onSortClick($event, 'id')" class="my-icon fa fa-chevron-up"></i></th>
+        <th scope="col">Title <i i style='color:#f0ad4e' (click)="onSortClick($event, 'title')" class="my-icon fa fa-chevron-up"></i></th>
         <th scope="col">From</th>
         <th scope="col">To</th>
         <th scope="col">Amount <i style='color:#f0ad4e' (click)="onSortClick($event, 'amount')" class="my-icon fa fa-chevron-up"></i></th>

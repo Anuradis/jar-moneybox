@@ -6,23 +6,29 @@
         Jar Name
       </label>
       <div class="col-md-4">
-        <select class="form-control" id="nameId" type="text" placeholder="(required)" formControlName="jarName">
+        <select class="form-control" id="nameId" type="text" placeholder="(required)" formControlName="jarName"
+        [class.is-invalid]="newSettingsForm.get('jarName').invalid && newSettingsForm.get('jarName').touched">
           <option selected disabled value="">Select</option>
           <option *ngFor="let jar of jars; let i = index" [ngValue]='jar'>
             {{jar.jarName}}</option>
         </select>
+        <div *ngIf="newSettingsForm.get('jarName').valid && newSettingsForm.get('jarName').touched"></div>
+        <small *ngIf="newSettingsForm.get('jarName').errors?.required" class="invalid-feedback">Jar name is required</small>
       </div>
 
       <label class="col-form-label col-md-2">
         Currency
       </label>
       <div class="col-md-4">
-        <select class="form-control" id="currencyId" type="text" placeholder="(required)" formControlName="currency">
+        <select class="form-control" id="currencyId" type="text" formControlName="currency"
+        [class.is-invalid]="newSettingsForm.get('currency').invalid && newSettingsForm.get('currency').touched">
           <option disabled selected value="">
             Select</option>
           <option *ngFor="let currency of currencyOptions let i = index">
             {{currency}}</option>
         </select>
+        <div *ngIf="newSettingsForm.get('currency').valid && newSettingsForm.get('currency').touched"></div>
+        <small *ngIf="newSettingsForm.get('currency').errors?.required" class="invalid-feedback">Currency is required</small>
       </div>
       <div class="container mt-4">
         <div class="row">
