@@ -14,11 +14,12 @@ import { AppComponent } from './app.component';
 import { JarComponent } from './jar/jar.component';
 import { JarData } from './jar/jar-data';
 import { TransferHistoryComponent } from './transfer-history/transfer-history.component';
-import { MakeTransferComponent } from './make-transfer-form/make-transfer.component';
+import { MakeTransferComponent } from './forms/make-transfer-form/make-transfer.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { NewJarFormComponent } from './new-jar-form/new-jar-form.component';
+import { NewJarFormComponent } from './forms/new-jar-form/new-jar-form.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { CurrencySettingsComponent } from './currency-settings-form/currency-settings.component';
+import { CurrencySettingsComponent } from './forms/currency-settings-form/currency-settings.component';
+import { FormsComponent } from './forms/forms.component';
 
 
 
@@ -32,6 +33,7 @@ import { CurrencySettingsComponent } from './currency-settings-form/currency-set
     NewJarFormComponent,
     DashboardComponent,
     CurrencySettingsComponent,
+    FormsComponent,
   ],
   imports: [
     BrowserModule,

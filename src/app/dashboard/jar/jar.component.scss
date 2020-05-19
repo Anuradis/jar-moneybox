@@ -1,0 +1,46 @@
+@import '../../scss/vars';
+
+.main__jar {
+  position: relative;
+  height: 45vh;
+  max-height: 45vh;
+  margin-bottom: 18px;
+  background-image: url("/assets/images/jar_img.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  ul {
+    list-style-type: none;
+    position: relative;
+    color: $nav-text-color;
+    font-weight: 500;
+  }
+
+  .main__jar--list {
+    position: relative;
+    top: 10%;
+  }
+
+  .vertical {
+    margin: 3rem 0px;
+    z-index: 1;
+  }
+
+  @media only screen and (min-width: 2500px) {
+    .text-mac {
+      font-size: 1.7rem;
+    }
+
+    .main__jar--list {
+      top: 20%;
+    }
+  }
+
+}
+
+@media only screen and (max-width: 800px) {
+  .main__jar {
+    margin-bottom: 1.5rem;
+  }
+}

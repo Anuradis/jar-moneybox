@@ -1,0 +1,23 @@
+@import '../../scss/vars';
+
+.form_main {
+  padding-top: 2.2rem;
+  min-height: 40vh;
+  background-color: $background-color;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  .form_title {
+    padding: 10px;
+    font-size: 1.2rem;
+    color: $placeholder-color;
+  }
+
+  .custom {
+    width: 160px;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+  }
+}

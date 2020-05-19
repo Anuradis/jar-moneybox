@@ -5,7 +5,7 @@ import { ITransfer } from './transfer-interface';
 @Component({
   selector: 'app-transfer-history',
   templateUrl: './transfer-history.component.html',
-  styleUrls: ['./transfer-history.component.css']
+  styleUrls: ['./transfer-history.component.scss']
 })
 export class TransferHistoryComponent implements OnInit {
 

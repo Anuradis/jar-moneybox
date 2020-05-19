@@ -7,6 +7,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-jar',
   templateUrl: './jar.component.html',
+  styleUrls: ['./jar.component.scss']
 })
 export class JarComponent implements OnInit {
 

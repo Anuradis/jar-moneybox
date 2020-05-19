@@ -5,15 +5,16 @@ import { Router } from '@angular/router';
 import { Observable, fromEvent, merge } from 'rxjs';
 import { debounceTime, min } from 'rxjs/operators';
 import { JarService } from 'src/app/services/jar.service';
-import { IJar } from '../jar/jar-interface';
-import { ITransfer } from 'src/app/transfer-history/transfer-interface';
+import { IJar } from '../../dashboard/jar/jar-interface';
+import { ITransfer } from 'src/app/dashboard/transfer-history/transfer-interface';
 import { TransferService } from 'src/app/services/transfer.service';
-import { CurrencyService } from '../services/currency.service';
+import { CurrencyService } from '../../services/currency.service';
 
 
 @Component({
   selector: 'app-make-transfer',
-  templateUrl: './make-transfer.component.html'
+  templateUrl: './make-transfer.component.html',
+  styleUrls: ['./make-transfer.components.scss']
 })
 
 export class MakeTransferComponent implements OnInit, AfterViewInit {
