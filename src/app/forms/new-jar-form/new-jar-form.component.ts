@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, ElementRef, AfterViewInit } from '@angular/core';
 import { FormControlName, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IJar } from '../../jar/jar-interface';
+import { IJar } from '../../dashboard/jar/jar-interface';
 import { Subscription, Observable, fromEvent, merge } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JarService } from '../../services/jar.service';
@@ -9,7 +9,8 @@ import { CurrencyService } from '../../services/currency.service';
 
 @Component({
   selector: 'app-new-jar-form',
-  templateUrl: './new-jar-form.component.html'
+  templateUrl: './new-jar-form.component.html',
+  styleUrls: ['./new-jar-form.component.scss']
 })
 export class NewJarFormComponent implements OnInit, AfterViewInit {
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];

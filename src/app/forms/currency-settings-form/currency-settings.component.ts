@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChildren, ElementRef, AfterViewInit } from '@angular/core';
 import { FormControlName, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IJar } from '../../jar/jar-interface';
+import { IJar } from '../../dashboard/jar/jar-interface';
 import { Subscription, Observable, fromEvent, merge } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JarService } from '../../services/jar.service';
@@ -10,6 +10,7 @@ import { debounceTime } from 'rxjs/operators';;
 @Component({
   selector: 'app-currency-settings',
   templateUrl: './currency-settings.component.html',
+  styleUrls: ['./currency-settings.component.scss']
 })
 export class CurrencySettingsComponent implements OnInit, AfterViewInit {
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];

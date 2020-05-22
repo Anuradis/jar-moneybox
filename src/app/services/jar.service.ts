@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of, throwError, pipe } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
-import { IJar } from '../jar/jar-interface';
+import { IJar } from '../dashboard/jar/jar-interface';
 
 @Injectable({
   providedIn: 'root'

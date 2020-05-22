@@ -9,6 +9,7 @@
         <div *ngIf="newJarForm.get('jarName').valid && newJarForm.get('jarName').touched"></div>
         <small *ngIf="newJarForm.get('jarName').errors?.required" class="invalid-feedback">Name is
           required</small>
+          <small *ngIf="newJarForm.get('jarName').errors?.minlength" class="invalid-feedback">Title must be at least 3 characters long</small>
       </div>
       <label class="col-form-label col-lg-1" for="balanceId">Balance</label>
       <div class="col-lg-3">

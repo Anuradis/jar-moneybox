@@ -1,7 +1,7 @@
 <div class="container">
-<div class="row d-flex justify-content-center">
+<div class="row d-flex">
   <div class="col-xl-3 col-lg-4 col-md-6 col-12 main__jar" *ngFor="let jar of jars; let i = index">
-    <ul class="main__jar--list list- col text-center justify-content text-mac vertical">
+    <ul class="main__jar--list col text-mac text-center justify-content  vertical">
       <li class>{{jar.jarName}}</li>
       <li class>Balance: {{jar.accountBalance}}</li>
       <li class>{{jar.currency}}</li>
@@ -9,3 +9,4 @@
   </div>
 </div>
 </div>
+

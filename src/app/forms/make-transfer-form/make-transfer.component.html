@@ -4,17 +4,17 @@
     <div class="form-group row">
       <label class="col-form-label col-lg-1 " for="titleId">Title</label>
       <div class="col-lg-3 ">
-        <input class="form-control" id="Title" type="text" formControlName="title"
+        <input class="form-control" id="Title" type="text" formControlName="title" required
           [class.is-invalid]="titleFrom.invalid && titleFrom.touched" />
 
         <div *ngIf="titleFrom.valid && titleFrom.touched"></div>
         <small *ngIf="titleFrom.errors?.required" class="invalid-feedback">Title is required</small>
-        <small *ngIf="titleFrom.errors?.minlength" class="invalid-feedback">Title must be at least 3 characers are
-          required</small>
+        <small *ngIf="titleFrom.errors?.minlength" class="invalid-feedback">Title must be at least 3 characters
+          long</small>
       </div>
       <label class="col-form-label col-lg-1" for="amountId">Amount</label>
       <div class="col-lg-3 ">
-        <input class="form-control" id="amountId" type="number" id="Amount" formControlName="amount"
+        <input class="form-control" id="amountId" type="number" id="Amount" formControlName="amount" required
           [class.is-invalid]="transferForm.get('amount').invalid && transferForm.get('amount').touched" />
         <div *ngIf="transferForm.get('amount').valid && transferForm.get('amount').touched"></div>
         <small *ngIf="transferForm.get('amount').errors?.required" class="invalid-feedback">Amount is required</small>
@@ -28,8 +28,8 @@
         Currency
       </label>
       <div class="col-lg-3">
-        <select class="form-control" id="currencyId" type="text" formControlName="currency"
-          (ngModelChange)='updateAccountBasedOnCurrency()'
+        <select class="form-control" id="currencyId" type="text" formControlName="currency" required
+          (ngModelChange)='updateAccountList()'
           [class.is-invalid]="transferForm.get('currency').invalid && transferForm.get('currency').touched">
           <option selected disabled value=''>Select</option>
           <option *ngFor="let currency of currencyOptions; let i = index">{{currency}}</option>
@@ -37,43 +37,40 @@
         <div *ngIf="transferForm.get('currency').valid && transferForm.get('currency').touched"></div>
         <small *ngIf="transferForm.get('currency').errors?.required" class="invalid-feedback">Currency is
           required</small>
+        <small *ngIf="transferForm.get('currency').errors?.availableTo" class="invalid-feedback">Minimum two available accounts are required in order to transfer money.</small>
       </div>
     </div>
     <div class="form-group row">
       <label class="col-lg-1 col-form-label" for="fromId">From</label>
       <div class="col-lg-3 ">
-        <select class="form-control" id="jarFromId" type="text" formControlName="from"
-          (ngModelChange)="updateAccountBasedOnFrom()"
+        <select class="form-control" id="jarFromId" type="text" formControlName="from" required
+          (ngModelChange)='updateAccountBasedOnFrom()'
           [class.is-invalid]="transferForm.get('from').invalid && transferForm.get('from').touched">
           <option selected disabled value="">Select</option>
-          <option *ngFor="let nameFrom of avaiableFromJars let i = index" [ngValue]='nameFrom'>
+          <option *ngFor="let nameFrom of availableFromJars let i = index" [ngValue]='nameFrom'>
             {{nameFrom.jarName}}</option>
         </select>
         <div *ngIf="transferForm.get('from').valid && transferForm.get('from').touched"></div>
-        <small *ngIf="transferForm.get('from').errors?.required" class="invalid-feedback">From account field is
-          required, if not accounts available, change currency selection.</small>
+        <small *ngIf="transferForm.get('from').errors?.required" class="invalid-feedback">From account is
+          required.</small>
       </div>
       <label class="col-lg-1 col-form-label" for="productCodeId">To</label>
       <div class="col-lg-3">
-        <select class="form-control" id="jarToId" type="text" formControlName="to"
+        <select class="form-control" id="jarToId" type="text" formControlName="to" required
           [class.is-invalid]="transferForm.get('to').invalid && transferForm.get('to').touched">
           <option selected disabled value="">Select</option>
-          <option *ngFor="let nameTo of avaiableToJars" [ngValue]='nameTo'>{{nameTo.jarName}}</option>
+          <option *ngFor="let nameTo of availableToJars" [ngValue]='nameTo'>{{nameTo.jarName}}</option>
         </select>
         <div *ngIf="transferForm.get('to').valid && transferForm.get('to').touched"></div>
-        <small *ngIf="transferForm.get('to').errors?.required" class="invalid-feedback">To account field is required, if
-          not accounts available, change currency selection.</small>
+        <small *ngIf="transferForm.get('to').errors?.required" class="invalid-feedback">To account is required</small>
       </div>
       <label class="col-lg-1 col-form-label" for="date">Date</label>
       <div class="col-lg-3">
-        <input class="form-control form-control" id="dateId" type="text" formControlName="date" bsDatepicker
+        <input class="form-control form-control" id="dateId" type="text" formControlName="date" bsDatepicker required
           [class.is-invalid]="transferForm.get('date').invalid && transferForm.get('date').touched" />
         <div *ngIf="transferForm.get('date').valid && transferForm.get('date').touched"></div>
         <small *ngIf="transferForm.get('date').errors?.required" class="invalid-feedback">Date is required</small>
-        <small *ngIf="transferForm.get('date').errors?.min" class="invalid-feedback">Number must be greater than
-          0</small>
-        <small *ngIf="transferForm.get('date').errors?.max" class="invalid-feedback">Number must be less than
-          1000</small>
+          <small *ngIf="transferForm.get('date').errors?.dateValidator" class="invalid-feedback">Date cannot be in the past</small>
       </div>
     </div>
     <div class="container mt-4">

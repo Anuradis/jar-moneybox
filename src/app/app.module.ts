@@ -11,15 +11,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { AppComponent } from './app.component';
-import { JarComponent } from './jar/jar.component';
-import { JarData } from './jar/jar-data';
-import { TransferHistoryComponent } from './transfer-history/transfer-history.component';
+import { JarComponent } from './dashboard/jar/jar.component';
+import { JarData } from './dashboard/jar/jar-data';
+import { TransferHistoryComponent } from './dashboard/transfer-history/transfer-history.component';
 import { MakeTransferComponent } from './forms/make-transfer-form/make-transfer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NewJarFormComponent } from './forms/new-jar-form/new-jar-form.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CurrencySettingsComponent } from './forms/currency-settings-form/currency-settings.component';
-import { FormsComponent } from './forms/forms.component';
 
 
 
@@ -33,13 +32,12 @@ import { FormsComponent } from './forms/forms.component';
     NewJarFormComponent,
     DashboardComponent,
     CurrencySettingsComponent,
-    FormsComponent,
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     CommonModule,
-    FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,

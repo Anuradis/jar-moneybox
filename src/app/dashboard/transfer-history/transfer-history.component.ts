@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TransferService } from '../services/transfer.service';
+import { TransferService } from '../../services/transfer.service';
 import { ITransfer } from './transfer-interface';
 
 @Component({
@@ -25,7 +25,6 @@ export class TransferHistoryComponent implements OnInit {
   set listFilter(value: string) {
     this._listFilter = value;
     this.sortedTransfers = this.listFilter ? this.perfomFilter(this.listFilter) : this.transfers;
-    console.log(this.listFilter);
   }
 
   constructor(private transferService: TransferService) {
