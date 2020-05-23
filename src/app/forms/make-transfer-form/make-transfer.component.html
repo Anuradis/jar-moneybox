@@ -30,14 +30,14 @@
       <div class="col-lg-3">
         <select class="form-control" id="currencyId" type="text" formControlName="currency" required
           (ngModelChange)='updateAccountList()'
-          [class.is-invalid]="transferForm.get('currency').invalid && transferForm.get('currency').touched">
+          [class.is-invalid]="transferForm.get('currency').invalid && transferForm.get('currency').touched || transferForm.get('currency').touched && transferForm.errors?.currencyValidator">
           <option selected disabled value=''>Select</option>
           <option *ngFor="let currency of currencyOptions; let i = index">{{currency}}</option>
         </select>
         <div *ngIf="transferForm.get('currency').valid && transferForm.get('currency').touched"></div>
         <small *ngIf="transferForm.get('currency').errors?.required" class="invalid-feedback">Currency is
           required</small>
-        <small *ngIf="transferForm.get('currency').errors?.availableTo" class="invalid-feedback">Minimum two available accounts are required in order to transfer money.</small>
+          <small *ngIf="transferForm.errors?.currencyValidator" class="invalid-feedback">Minimum two available accounts are required in order to transfer money.</small>
       </div>
     </div>
     <div class="form-group row">
@@ -66,13 +66,13 @@
       </div>
       <label class="col-lg-1 col-form-label" for="date">Date</label>
       <div class="col-lg-3">
-        <input class="form-control form-control" id="dateId" type="text" formControlName="date" bsDatepicker required
+        <input class="form-control form-control" id="dateId" type="text" formControlName="date" [minDate]="today" bsDatepicker required
           [class.is-invalid]="transferForm.get('date').invalid && transferForm.get('date').touched" />
         <div *ngIf="transferForm.get('date').valid && transferForm.get('date').touched"></div>
         <small *ngIf="transferForm.get('date').errors?.required" class="invalid-feedback">Date is required</small>
-          <small *ngIf="transferForm.get('date').errors?.dateValidator" class="invalid-feedback">Date cannot be in the past</small>
       </div>
     </div>
+    <div *ngIf="transferForm.errors?.invalid" class="invalid-feedback">Form is invalid</div>
     <div class="container mt-4">
       <div class="row">
         <div class="col text-center">

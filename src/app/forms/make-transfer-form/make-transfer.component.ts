@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, FormControlName, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, FormControlName, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Observable, fromEvent, merge } from 'rxjs';
@@ -9,6 +9,7 @@ import { IJar } from '../../dashboard/jar/jar-interface';
 import { ITransfer } from 'src/app/dashboard/transfer-history/transfer-interface';
 import { TransferService } from 'src/app/services/transfer.service';
 import { resolve } from 'url';
+import { currencyValidator } from 'src/app/shared/validators/currencyValidator';
 
 
 @Component({
@@ -34,31 +35,27 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
   availableJars: string[];
   availableFromJars: IJar[] = [];
   availableToJars: IJar[] = [];
-  today = new Date().getTime();
-
-  public title: FormControl = new FormControl('', [Validators.minLength(3)]);
-  public amount: FormControl = new FormControl('', [Validators.min(0), Validators.max(1000)]);
-  public currency: FormControl = new FormControl('', this.availableTo.bind(this));
-  public from: FormControl = new FormControl({ value: '', disabled: true });
-  public to: FormControl = new FormControl({ value: '', disabled: true });
-  public date: FormControl = new FormControl('', this.dateValidator.bind(this));
+  today = new Date();
 
   constructor(private router: Router,
-              private fb: FormBuilder,
-              private jarService: JarService,
-              private transferService: TransferService) {
+    private fb: FormBuilder,
+    private jarService: JarService,
+    private transferService: TransferService) {
 
   }
 
   ngOnInit(): void {
-    this.transferForm = new FormGroup({
-      title: this.title,
-      amount: this.amount,
-      currency: this.currency,
-      from: this.from,
-      to: this.to,
-      date: this.date
-    });
+    this.transferForm = this.fb.group({
+      title: ['', [Validators.minLength(3)]],
+      amount: ['', [Validators.min(0), Validators.max(1000)]],
+      currency: [''],
+      from: [{ value: '', disabled: true }],
+      to: [{ value: '', disabled: true }],
+      date: [''],
+    },
+     { validator: currencyValidator }
+    );
+
 
     this.jarService.getJars()
       .subscribe({
@@ -69,6 +66,10 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
         },
         error: err => this.errorMessage = err
       });
+
+      this.transferForm.value.subscribe(
+        (value) => console.log(value)
+      )
   }
 
 
@@ -102,12 +103,10 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
         this.availableFromJars = [];
         this.transferForm.controls.from.disable();
         this.transferForm.controls.to.disable();
-        console.log(this.availableFromJars, 'available jarsLength <2');
       } else {
         this.transferForm.controls.from.enable();
         this.transferForm.controls.to.disable();
       }
-      console.log(this.availableFromJars, 'available availableFromJars');
     }
   }
 
@@ -121,48 +120,6 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
       }
       this.transferForm.controls.to.enable();
     }
-  }
-
-
-  // availableTo(group: FormGroup): {[key: string]: boolean | null} {
-  //   if (group && group.value !== null || group.value !== undefined) {
-  //     if (!group.controls.from.enable) {
-  //       return {availableTo : true};
-  //     }
-  //   }
-  //   return null;
-  // }
-
-
-  dateValidator(control: AbstractControl): { [key: string]: boolean | null } {
-    if (control && control.value !== null || control.value !== undefined) {
-      let selectedDate = new Date (control.value).getTime();
-      console.log(typeof selectedDate);
-      console.log(typeof this.today);
-      console.log(selectedDate, 'selected');
-      console.log(this.today, 'today');
-      if (this.today <= selectedDate) {
-        return { dateValidator : true };
-      }
-       return null;
-    }
-  }
-
-  availableTo(control: AbstractControl): Promise<any> | Observable<any> {
-    const promise = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log(this.availableFromJars.length, 'before');
-        if (this.availableFromJars.length < 2) {
-          resolve({ availableTo: true });
-          console.log(control, 'error');
-        } else {
-          resolve(null);
-          console.log(control, 'no error');
-        }
-      }, 1000);
-    });
-    console.log(promise);
-    return promise;
   }
 
   calculate(transferedForm: ITransfer, jars: IJar): void {
@@ -197,7 +154,6 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
               error: err => this.errorMessage = err
             });
       } else if (this.transferForm.invalid) {
-        console.log(this.transferForm.invalid);
       }
     } else {
       this.errorMessage = 'Please correct the validation errors.';
@@ -208,6 +164,5 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
     this.transferForm.reset();
     this.router.navigate(['/']);
   }
-
 
 }
