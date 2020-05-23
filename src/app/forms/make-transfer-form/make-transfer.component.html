@@ -37,7 +37,8 @@
         <div *ngIf="transferForm.get('currency').valid && transferForm.get('currency').touched"></div>
         <small *ngIf="transferForm.get('currency').errors?.required" class="invalid-feedback">Currency is
           required</small>
-          <small *ngIf="transferForm.errors?.currencyValidator" class="invalid-feedback">Minimum two available accounts are required in order to transfer money.</small>
+        <small *ngIf="transferForm.errors?.currencyValidator" class="invalid-feedback">Minimum two available accounts
+          are required in order to transfer money.</small>
       </div>
     </div>
     <div class="form-group row">
@@ -66,18 +67,30 @@
       </div>
       <label class="col-lg-1 col-form-label" for="date">Date</label>
       <div class="col-lg-3">
-        <input class="form-control form-control" id="dateId" type="text" formControlName="date" [minDate]="today" bsDatepicker required
+        <input class="form-control form-control" id="dateId" type="text" formControlName="date" [minDate]="today"
+          bsDatepicker required
           [class.is-invalid]="transferForm.get('date').invalid && transferForm.get('date').touched" />
         <div *ngIf="transferForm.get('date').valid && transferForm.get('date').touched"></div>
         <small *ngIf="transferForm.get('date').errors?.required" class="invalid-feedback">Date is required</small>
       </div>
     </div>
-    <div *ngIf="transferForm.errors?.invalid" class="invalid-feedback">Form is invalid</div>
-    <div class="container mt-4">
+    <div *ngIf="titleFrom.invalid && titleFrom.touched ||
+    transferForm.get('amount').invalid && transferForm.get('amount').touched ||
+    transferForm.get('currency').invalid && transferForm.get('currency').touched ||
+    transferForm.get('from').invalid && transferForm.get('from').touched ||
+    transferForm.get('to').invalid && transferForm.get('to').touched ||
+    transferForm.get('date').invalid && transferForm.get('date').touched"
+     class="text-primary" class="container">
+      <div class="row">
+        <div class="col text-center">
+          <small class="text-info">Disabled until the form data is valid</small>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-2">
       <div class="row">
         <div class="col text-center">
           <button class="btn btn-primary custom mr-3 btn-sm mb-2" type="submit"
-            [title]="transferForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
             [disabled]="!transferForm.valid"> Make a transfer
           </button>
           <button class="btn custom btn-outline-secondary btn-sm mr-3 mb-2" type="button" title="Cancel your edits"

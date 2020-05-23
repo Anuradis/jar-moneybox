@@ -66,10 +66,6 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
         },
         error: err => this.errorMessage = err
       });
-
-      this.transferForm.value.subscribe(
-        (value) => console.log(value)
-      )
   }
 
 
