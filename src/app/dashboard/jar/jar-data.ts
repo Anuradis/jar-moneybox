@@ -24,8 +24,14 @@ export class JarData implements InMemoryDbService {
       {
         id: 3,
         jarName: 'Jar',
-        accountBalance: 400,
-        currency: 'EUR'
+        accountBalance: 500,
+        currency: 'USD'
+      },
+      {
+        id: 4,
+        jarName: 'Jar',
+        accountBalance: 1000,
+        currency: 'PLN'
       },
     ];
     const transfers: ITransfer[] = [
