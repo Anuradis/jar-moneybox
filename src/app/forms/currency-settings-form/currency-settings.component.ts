@@ -1,27 +1,32 @@
 import { Component, OnInit, ViewChildren, ElementRef, AfterViewInit } from '@angular/core';
 import { FormControlName, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { IJar } from '../jar/jar-interface';
+import { IJar } from '../../dashboard/jar/jar-interface';
 import { Subscription, Observable, fromEvent, merge } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { JarService } from '../services/jar.service';
-import { debounceTime } from 'rxjs/operators';
-import { CurrencyService } from '../services/currency.service';
+import { JarService } from '../../services/jar.service';
+import { CurrencyService } from '../../services/currency.service';
+import { debounceTime } from 'rxjs/operators';;
 
 @Component({
-  selector: 'app-new-jar-form',
-  templateUrl: './new-jar-form.component.html'
+  selector: 'app-currency-settings',
+  templateUrl: './currency-settings.component.html',
+  styleUrls: ['./currency-settings.component.scss']
 })
-export class NewJarFormComponent implements OnInit, AfterViewInit {
+export class CurrencySettingsComponent implements OnInit, AfterViewInit {
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
-  pageTitle = 'Create New Jar';
+  pageTitle = 'Currency Settings';
   errorMessage: string;
   erronOnCreatedJar: string;
-  newJarForm: FormGroup;
+
+  newSettingsForm: FormGroup;
+  createdSettingsForm: IJar;
 
   jars: IJar[] = [];
-  createdJarForm: IJar;
   currencyOptions: string[];
+  currencyOptions1: [];
+  private sub: Subscription;
+
 
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -29,15 +34,14 @@ export class NewJarFormComponent implements OnInit, AfterViewInit {
     private jarService: JarService,
     private currencyService: CurrencyService) { }
 
+
   ngOnInit(): void {
-    this.newJarForm = this.fb.group({
-      jarName: ['', [Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(25)]],
-      accountBalance: ['', [Validators.required, Validators.min(0), Validators.max(100000)]],
+    this.newSettingsForm = this.fb.group({
+      jarName: ['', Validators.required],
       currency: ['', Validators.required],
 
     });
+
 
     this.jarService.getJars()
       .subscribe({
@@ -51,6 +55,7 @@ export class NewJarFormComponent implements OnInit, AfterViewInit {
       .subscribe({
         next: data => {
           this.currencyOptions = data;
+          this.currencyOptions1 = data;
         },
         error: err => this.errorMessage = err
       });
@@ -59,20 +64,32 @@ export class NewJarFormComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     const controlBlurs: Observable<any>[] = this.formInputElements
       .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
-    merge(this.newJarForm.valueChanges, ...controlBlurs).pipe(
+    merge(this.newSettingsForm.valueChanges, ...controlBlurs).pipe(
       debounceTime(800)
     );
   }
 
-  submitNewJar(): void {
-    if (this.newJarForm.valid) {
-      if (this.newJarForm.dirty) {
-        this.createdJarForm = { ...this.newJarForm.value };
-        this.jarService.addNewJar(this.createdJarForm)
+  onSettingsChange() {
+    for (const jar of this.jars) {
+      if (this.newSettingsForm.value.jarName.id === jar.id) {
+        jar.currency = this.newSettingsForm.value.currency;
+        this.createdSettingsForm = { ...this.newSettingsForm.value };
+        this.createdSettingsForm = jar;
+      }
+    }
+  }
+
+
+  submitSettings(): void {
+    if (this.newSettingsForm.valid) {
+      if (this.newSettingsForm.dirty) {
+        this.onSettingsChange();
+        this.jarService.updateJar(this.createdSettingsForm)
           .subscribe({
-            next: () => { },
             error: err => this.erronOnCreatedJar = err
           });
+      } else {
+        this.onJarCreated();
       }
     } else {
       this.errorMessage = 'Please correct the validation errors.';
@@ -81,7 +98,7 @@ export class NewJarFormComponent implements OnInit, AfterViewInit {
   }
 
   onJarCreated(): void {
-    this.newJarForm.reset();
+    this.newSettingsForm.reset();
     this.router.navigate(['/']);
   }
 }

@@ -1,19 +1,21 @@
-import { Component, OnInit, AfterViewInit, ViewChildren, ElementRef, OnChanges } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, FormControlName, ValidatorFn } from '@angular/forms';
+import { Component, OnInit, AfterViewInit, ViewChildren, ElementRef } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators, FormControlName, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Observable, fromEvent, merge } from 'rxjs';
-import { debounceTime, min } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 import { JarService } from 'src/app/services/jar.service';
-import { IJar } from '../jar/jar-interface';
-import { ITransfer } from 'src/app/transfer-history/transfer-interface';
+import { IJar } from '../../dashboard/jar/jar-interface';
+import { ITransfer } from 'src/app/dashboard/transfer-history/transfer-interface';
 import { TransferService } from 'src/app/services/transfer.service';
-import { CurrencyService } from '../services/currency.service';
+import { resolve } from 'url';
+import { currencyValidator } from 'src/app/shared/validators/currencyValidator';
 
 
 @Component({
   selector: 'app-make-transfer',
-  templateUrl: './make-transfer.component.html'
+  templateUrl: './make-transfer.component.html',
+  styleUrls: ['./make-transfer.component.scss']
 })
 
 export class MakeTransferComponent implements OnInit, AfterViewInit {
@@ -25,57 +27,48 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
   errorOnToBalance: string;
   transferForm: FormGroup;
 
-
-  public title: FormControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
-  public amount: FormControl = new FormControl('', [Validators.required, Validators.min(0), Validators.max(1000)]);
-  public currency: FormControl = new FormControl('', Validators.required);
-  public from: FormControl = new FormControl('', Validators.required);
-  public to: FormControl = new FormControl('', Validators.required);
-  public date: FormControl = new FormControl('', Validators.required);
-
   jars: IJar[] = [];
   fromBalance: IJar;
   toBalance: IJar;
   transferedForm: ITransfer;
   currencyOptions: string[];
-  avaiableFromJars: IJar[] = [];
-  avaiableToJars: IJar[] = [];
+  availableJars: string[];
+  availableFromJars: IJar[] = [];
+  availableToJars: IJar[] = [];
+  today = new Date();
 
   constructor(private router: Router,
     private fb: FormBuilder,
     private jarService: JarService,
-    private transferService: TransferService,
-    private currencyService: CurrencyService) {
+    private transferService: TransferService) {
 
   }
 
   ngOnInit(): void {
-    this.transferForm = new FormGroup({
-      title: this.title,
-      amount: this.amount,
-      currency: this.currency,
-      from: this.from,
-      to: this.to,
-      date: this.date
-    });
+    this.transferForm = this.fb.group({
+      title: ['', [Validators.minLength(3)]],
+      amount: ['', [Validators.min(0), Validators.max(1000)]],
+      currency: [''],
+      from: [{ value: '', disabled: true }],
+      to: [{ value: '', disabled: true }],
+      date: [''],
+    },
+     { validator: currencyValidator }
+    );
+
 
     this.jarService.getJars()
       .subscribe({
         next: data => {
           this.jars = data;
+          this.availableJars = data.map(currency => currency.currency);
+          this.currencyOptions = [...new Set(this.availableJars)];
         },
         error: err => this.errorMessage = err
       });
-
-    this.currencyService.getCurrencyOptions()
-      .subscribe({
-        next: data => {
-          this.currencyOptions = data;
-        },
-        error: err => this.errorMessage = err
-      });
-
   }
+
+
 
   ngAfterViewInit(): void {
 
@@ -91,25 +84,37 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
     return this.transferForm.get('title');
   }
 
-  updateAccountBasedOnCurrency() {
+
+  updateAccountList() {
+    this.transferForm.controls.from.setValue('');
+    this.availableToJars = [];
+    this.availableFromJars = [];
     if (this.transferForm.value.currency !== '') {
       for (const jar of this.jars) {
         if (jar.currency === this.transferForm.value.currency) {
-          this.avaiableFromJars.push(jar);
-        } else {
-          this.avaiableFromJars = [];
+          this.availableFromJars.push(jar);
         }
+      }
+      if (this.availableFromJars.length < 2) {
+        this.availableFromJars = [];
+        this.transferForm.controls.from.disable();
+        this.transferForm.controls.to.disable();
+      } else {
+        this.transferForm.controls.from.enable();
+        this.transferForm.controls.to.disable();
       }
     }
   }
 
   updateAccountBasedOnFrom(): void {
+    this.transferForm.controls.to.setValue('');
     if (this.transferForm.value.from !== '') {
-      for (const jarFrom of this.avaiableFromJars) {
+      for (const jarFrom of this.availableFromJars) {
         if (jarFrom.jarName === this.transferForm.value.from.jarName) {
-          this.avaiableToJars = this.avaiableFromJars.filter(e => e !== jarFrom);
+          this.availableToJars = this.availableFromJars.filter(e => e !== jarFrom);
         }
       }
+      this.transferForm.controls.to.enable();
     }
   }
 
@@ -145,7 +150,6 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
               error: err => this.errorMessage = err
             });
       } else if (this.transferForm.invalid) {
-        console.log(this.transferForm.invalid);
       }
     } else {
       this.errorMessage = 'Please correct the validation errors.';
@@ -157,16 +161,4 @@ export class MakeTransferComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/']);
   }
 
-  transferCustomValidator: ValidatorFn = (form: FormGroup) => {
-    const curr = form.value.currency;
-    const myFrom = form.value.from;
-    const myTo = form.value.to;
-
-    if (curr && myFrom && myTo) {
-      if (curr === myFrom.currency && curr === myTo.currency) {
-        return null;
-      }
-    }
-    form.get('from').setErrors({ customNotValid: true });
-  }
 }

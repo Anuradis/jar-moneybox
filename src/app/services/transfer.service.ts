@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ITransfer } from '../transfer-history/transfer-interface';
+import { ITransfer } from '../dashboard/transfer-history/transfer-interface';
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
